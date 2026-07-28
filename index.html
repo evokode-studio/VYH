@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boda Vero & Humberto</title>
+
+    <!-- 1. PRECARGA DE TIPOGRAFÍAS (Ajusta los href con tus rutas reales de Google Fonts o fuentes locales) -->
+    <!-- <link rel="preload" href="URL_DE_TU_FUENTE_QUATTROCENTO" as="font" type="font/woff2" crossorigin> -->
+    <!-- <link rel="preload" href="URL_DE_TU_FUENTE_PINYON" as="font" type="font/woff2" crossorigin> -->
+
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <!-- Carga de fuentes en paralelo y optimizada -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Quattrocento:ital,wght@0,400;0,700;1,400&family=Roboto+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- 2. SCRIPT DIFERIDO -->
+    <!-- Se removió type="module" si no usas imports/exports reales, y se agregó 'defer' -->
+    <script src="./assets/js/scripts.js" defer></script>
+</head>
+
+<body>
+    <!-- 01. NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar__container">
+            <a href="#hero" class="navbar__logo">V & H</a>
+            <button class="navbar__toggle" id="menu-btn" aria-label="Abrir menú">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="navbar__menu" id="menu-links">
+                <li><a href="#historia" class="navbar__link">HISTORIA</a></li>
+                <li><a href="#evento" class="navbar__link">EVENTO</a></li>
+                <li><a href="#itinerario" class="navbar__link">ITINERARIO</a></li>
+                <li><a href="#itinerario" class="navbar__link">UBICACIONES</a></li>
+                <li><a href="#regalo" class="navbar__link">REGALO</a></li>
+                <li><a href="#playlist" class="navbar__link">PLAYLIST</a></li>
+                <li><a href="#mensajes" class="navbar__link">MENSAJES</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 02. HERO (Sin animaciones, carga prioritaria) -->
+    <header class="hero" id="hero">
+        <div class="hero__background" style="background-image: url('assets/img/BYVImg/1-PORTADA.png');"></div>
+        <div class="hero__overlay"></div>
+        <div class="hero__content">
+
+            <div class="hero__center">
+                <h1 class="hero__title">Verónica & Humberto</h1>
+                <p class="hero__floating-text">Save the date!</p>
+            </div>
+
+            <div class="hero__bottom">
+                <p class="hero__date">10 · octubre · 2026</p>
+                <p class="hero__location">Lerdo, Durango</p>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- QUOTE -->
+    <section class="quote" id="quote">
+        <div class="quote__container">
+
+            <!-- 3. CARGA PEREZOSA (loading="lazy") a partir de aquí -->
+            <img src="assets/img/BYVImg/Boda Vero & Bryan-2-03.png" alt="Flor decorativa" class="quote__flower"
+                loading="lazy">
+            <img src="assets/img/BYVImg/Boda Vero & Bryan-2-02.png" alt="Pin de cera" class="quote__pin" loading="lazy">
+
+            <div class="quote__center-stack">
+                <h2 class="quote__text-top">Ocho años juntos.</h2>
+
+                <div class="quote__images">
+                    <img src="assets/img/BYVImg/Bryan&Vero-18byn.png" alt="Vero y Humberto 1" class="quote__img"
+                        loading="lazy">
+                    <img src="assets/img/BYVImg/Bryan&Vero-54byn.png" alt="Vero y Humberto 2" class="quote__img"
+                        loading="lazy">
+                    <img src="assets/img/BYVImg/Bryan&Vero-61.png" alt="Vero y Humberto 3" class="quote__img"
+                        loading="lazy">
+                </div>
+
+                <h2 class="quote__text-bottom">Una vida por delante.</h2>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 03. CUENTA REGRESIVA -->
+    <section class="countdown" id="evento">
+        <div class="countdown__watermark"
+            style="background-image: url('assets/img/BYVImg/Boda Vero & Bryan-2-04.jpg');"></div>
+        <div class="countdown__content">
+            <p class="countdown__label">El gran día</p>
+            <h2 class="countdown__title">FALTA POCO</h2>
+            <p class="countdown__date">Sábado 10 de octubre de 2026</p>
+
+            <div class="countdown__timer" id="timer">
+                <div class="countdown__item">
+                    <span id="days">00</span>
+                    <p>DÍAS</p>
+                </div>
+                <div class="countdown__separator"></div>
+                <div class="countdown__item">
+                    <span id="hours">00</span>
+                    <p>HORAS</p>
+                </div>
+                <div class="countdown__separator"></div>
+                <div class="countdown__item">
+                    <span id="minutes">00</span>
+                    <p>MINUTOS</p>
+                </div>
+                <div class="countdown__separator"></div>
+                <div class="countdown__item">
+                    <span id="seconds">00</span>
+                    <p>SEGUNDOS</p>
+                </div>
+            </div>
+
+            <div class="countdown__actions">
+                <button class="btn btn--calendar" id="calendar-btn">Guarda la fecha en tu calendario</button>
+
+                <div class="calendar-dropdown hidden" id="calendar-dropdown">
+                    <a href="#" id="cal-ics">Descargar .ics</a>
+
+                    <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Boda+Vero+%26+Humberto&dates=20261010T160000/20261011T020000&location=NH+Quinta,+Lerdo,+Durango"
+                        target="_blank" rel="noopener noreferrer">Google Calendar</a>
+
+                    <a href="https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent&startdt=2026-10-10T16:00:00Z&enddt=2026-10-11T02:00:00Z&subject=Boda+Vero+%26+Humberto&location=NH+Quinta,+Lerdo,+Durango"
+                        target="_blank" rel="noopener noreferrer">Outlook</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 04. NUESTRA HISTORIA -->
+    <section class="story" id="historia">
+        <div class="story__container">
+            <div class="story__top">
+                <h2 class="story__title-left">Cómo<br>empezó<br>todo</h2>
+
+                <div class="story__frame">
+                    <img src="assets/img/BYVImg/Recurso 7.svg" alt="Marco postal" class="story__img-postal"
+                        loading="lazy">
+                </div>
+
+                <h2 class="story__title-right">Nuestra<br>historia</h2>
+            </div>
+
+            <div class="story__bottom">
+                <div class="story__text">
+                    <p>Todo comenzó gracias a amigos en común que, sin conocernos todavía, ya sabíamos el uno del otro.
+                    </p>
+                    <p>La vida, con su forma de hacer las cosas, nos volvió a cruzar años después. Una respuesta a una
+                        historia fue todo lo que hizo falta. Esa noche hablamos durante horas, - y sin darnos cuenta, el
+                        amanecer nos sorprendió.</p>
+                    <p>Poco después, cuando Vero volvió a Torreón, tuvimos nuestra primera cita. Desde entonces - hace
+                        ya ocho años - no nos hemos separado.</p>
+                </div>
+                <p class="story__signature">Y dijimos que sí.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 05. ITINERARIO -->
+    <section class="itinerary" id="itinerario">
+        <div class="itinerary__header">
+            <h2 class="itinerary__title-top">Itinerario del</h2>
+            <h2 class="itinerary__title-bottom">Gran Día</h2>
+            <p class="itinerary__subtitle">Los momentos que queremos vivir contigo.</p>
+        </div>
+
+        <div class="itinerary__timeline">
+            <div class="itinerary__line"></div>
+
+            <!-- Fila 1 -->
+            <div class="itinerary__event itinerary__event--left">
+                <div class="itinerary__img-wrapper">
+                    <img src="./assets/img/BYVImg/Recurso%2010.svg" alt="Ceremonia Religiosa"
+                        class="itinerary__img itinerary__img--religiosa" loading="lazy">
+                    <div class="itinerary__connector"></div>
+                </div>
+                <div class="itinerary__event-info">
+                    <h3 class="itinerary__event-title">Ceremonia Religiosa</h3>
+                    <p>4:00 pm</p>
+                    <p class="itinerary__event-place">Parroquia de la Sagrada Familia</p>
+                    <p>Av. Victoria, Las Rosas.<br> Gómez Palacio, Dgo.</p>
+                    <a href="https://maps.app.goo.gl/PyNbF8cDR4AxUQna6" target="_blank" rel="noopener noreferrer"
+                        class="btn-maps">Ver en Google Maps</a>
+                </div>
+            </div>
+            <div class="itinerary__dresscode">
+                <p>• El evento es al aire libre.<br>Te sugerimos vestimenta<br>formal y calzado cómodo.</p>
+            </div>
+
+            <!-- Fila 2 -->
+            <div class="itinerary__spacer"></div>
+            <div class="itinerary__event itinerary__event--right">
+                <div class="itinerary__img-wrapper">
+                    <div class="itinerary__connector"></div>
+                    <img src="./assets/img/BYVImg/Recurso%209.svg" alt="Ceremonia Civil"
+                        class="itinerary__img itinerary__img--civil" loading="lazy">
+                </div>
+                <div class="itinerary__event-info">
+                    <h3 class="itinerary__event-title">Ceremonia Civil</h3>
+                    <p>6:00 pm</p>
+                    <p class="itinerary__event-place">NH Quinta</p>
+                    <p>Lerdo, Dgo.</p>
+                    <a href="https://maps.app.goo.gl/MQYRsBhZ9PK1c2SJ8" target="_blank" rel="noopener noreferrer"
+                        class="btn-maps">Ver en Google Maps</a>
+                </div>
+            </div>
+
+            <!-- Fila 3 -->
+            <div class="itinerary__event itinerary__event--left">
+                <div class="itinerary__img-wrapper">
+                    <img src="./assets/img/BYVImg/Recurso%2011.svg" alt="Recepción"
+                        class="itinerary__img itinerary__img--recepcion" loading="lazy">
+                    <div class="itinerary__connector"></div>
+                </div>
+                <div class="itinerary__event-info">
+                    <h3 class="itinerary__event-title">Recepción</h3>
+                    <p>7:00 pm</p>
+                    <p class="itinerary__event-place">NH Quinta</p>
+                    <p>Lerdo, Dgo.</p>
+                    <a href="https://maps.app.goo.gl/MQYRsBhZ9PK1c2SJ8" target="_blank" rel="noopener noreferrer"
+                        class="btn-maps">Ver en Google Maps</a>
+                </div>
+            </div>
+            <div class="itinerary__spacer"></div>
+
+            <!-- Fila 4 -->
+            <div class="itinerary__spacer"></div>
+            <div class="itinerary__event itinerary__event--right">
+                <div class="itinerary__img-wrapper">
+                    <div class="itinerary__connector"></div>
+                    <img src="./assets/img/BYVImg/Recurso%208.svg" alt="Cena"
+                        class="itinerary__img itinerary__img--cena" loading="lazy">
+                </div>
+                <div class="itinerary__event-info">
+                    <h3 class="itinerary__event-title">Cena</h3>
+                    <p>8:00 pm</p>
+                    <p class="itinerary__event-place">NH Quinta</p>
+                    <p>Lerdo, Dgo.</p>
+                    <a href="https://maps.app.goo.gl/MQYRsBhZ9PK1c2SJ8" target="_blank" rel="noopener noreferrer"
+                        class="btn-maps">Ver en Google Maps</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="itinerary__footer">
+            <p class="itinerary__thanks">Agradecemos<br>enormemente<br>tu puntualidad.</p>
+        </div>
+    </section>
+
+    <!-- 06. PREGUNTAS FRECUENTES -->
+    <section class="faqs">
+        <div class="faqs__header">
+            <h2 class="faqs__title-top">Preguntas</h2>
+            <h2 class="faqs__title-bottom">Frecuentes</h2>
+        </div>
+
+        <div class="faqs__grid">
+            <div class="faqs__column">
+                <details class="faq">
+                    <summary class="faq__summary">
+                        <span class="faq__title">¿Puedo llevar acompañante?</span>
+                        <span class="faq__icon"></span>
+                    </summary>
+                    <p class="faq__content">Los pases son nominales - tu invitación indica exactamente cuántos lugares
+                        incluye. Si tienes alguna duda, no dudes en escribirnos.</p>
+                </details>
+                <details class="faq">
+                    <summary class="faq__summary">
+                        <span class="faq__title">¿Se permiten niños en el evento?</span>
+                        <span class="faq__icon"></span>
+                    </summary>
+                    <p class="faq__content">Este día está pensado solo para adultos. Con mucho cariño les pedimos
+                        respetar esta decisión - queremos que todos, incluyendo los papás, puedan disfrutarlo sin
+                        preocupaciones.</p>
+                </details>
+                <details class="faq">
+                    <summary class="faq__summary">
+                        <span class="faq__title">¿El evento es al aire libre?</span>
+                        <span class="faq__icon"></span>
+                    </summary>
+                    <p class="faq__content">Sí, completamente. Tanto la ceremonia civil como la recepción serán al aire
+                        libre en NH Quinta. Te recomendamos tomar esto en cuenta al elegir tu atuendo - especialmente el
+                        calzado.</p>
+                </details>
+                <details class="faq">
+                    <summary class="faq__summary">
+                        <span class="faq__title">¿Cuál es el código de vestimenta?</span>
+                        <span class="faq__icon"></span>
+                    </summary>
+                    <p class="faq__content">Formal. Apreciamos mucho que se vistan a la altura de la ocasión. Para las
+                        damas, considera que el evento es en jardín - los tacones muy delgados pueden no ser la opción
+                        más cómoda.</p>
+                </details>
+            </div>
+
+            <div class="faqs__column">
+                <details class="faq">
+                    <summary class="faq__summary">
+                        <span class="faq__title">¿A qué hora debo llegar?</span>
+                        <span class="faq__icon"></span>
+                    </summary>
+                    <p class="faq__content">La ceremonia religiosa comienza puntualmente a las 4:00 pm en la Parroquia
+                        de la Sagrada Familia. Te sugerimos llegar con 10 o 15 mins. de anticipación para encontrar
+                        lugar y acomodarte tranquilamente.</p>
+                </details>
+                <details class="faq">
+                    <summary class="faq__summary">
+                        <span class="faq__title">¿Todo será en el mismo lugar?</span>
+                        <span class="faq__icon"></span>
+                    </summary>
+                    <p class="faq__content">No del todo. La ceremonia religiosa es en la Parroquia de la Sagrada
+                        Familia, en Gómez Palacio. La ceremonia civil y la recepción son en NH Quinta, en Lerdo. En la
+                        sección de ubicaciones encontrarás los mapas y direcciones de cada lugar.</p>
+                </details>
+                <details class="faq">
+                    <summary class="faq__summary">
+                        <span class="faq__title">¿Habrá estacionamiento disponible?</span>
+                        <span class="faq__icon"></span>
+                    </summary>
+                    <p class="faq__content">NH Quinta cuenta con estacionamiento disponible. Te sugerimos llegar con un
+                        poco de anticipación para asegurar tu lugar - especial si vas en familia o con acompañante.</p>
+                </details>
+
+                <div class="faqs__footer">
+                    <img src="assets/img/BYVImg/Boda Vero & Bryan-2-02.png" alt="Sello de cera" class="faqs__seal"
+                        loading="lazy">
+                    <p class="faqs__thanks">¡Te esperamos!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALERÍA -->
+    <section class="gallery">
+        <div class="gallery__bg-wrapper">
+            <img src="./assets/img/BYVImg/Bryan&Vero-31.png" alt="Fondo" class="gallery__bg-img" loading="lazy">
+        </div>
+        <div class="gallery__content">
+            <img src="./assets/img/BYVImg/Bryan&Vero-18byn.png" alt="Foto Izquierda" class="gallery__photo"
+                loading="lazy">
+            <img src="./assets/img/BYVImg/Bryan&Vero-54byn.png" alt="Foto Derecha" class="gallery__photo"
+                loading="lazy">
+        </div>
+    </section>
+
+    <!-- 07. EL MEJOR REGALO -->
+    <section class="gift" id="regalo">
+        <div class="gift__container">
+            <img src="./assets/img/BYVImg/Bryan&Vero-18.png" alt="El mejor regalo" class="gift__img" loading="lazy">
+
+            <div class="gift__content">
+                <div class="gift__header">
+                    <h2 class="gift__title-top">El mejor regalo</h2>
+                    <h2 class="gift__title-bottom">ya lo tenemos.</h2>
+                </div>
+                <p class="gift__text">Ocho años juntos nos han enseñado que lo que más vale no cabe en una caja. Tu
+                    presencia - que hayas apartado este día para estar con nosotros - ya es más de lo que podríamos
+                    pedir.</p>
+                <p class="gift__text">Si aún así quieres celebrar con nosotros de esta forma, con mucho cariño recibimos
+                    tu gesto:</p>
+
+                <div class="gift__bank">
+                    <p><span class="gift__label">Titular: </span><span class="gift__data">Verónica Concepción González
+                            Reveles</span></p>
+                    <p><span class="gift__label">Banco: </span><span class="gift__data">BBVA</span></p>
+                    <p class="gift__account">
+                        <span class="gift__label">Número: </span>
+                        <span class="gift__data" id="accountNumber">4152 3141 9330 5870</span>
+                        <svg class="gift__copy-icon" onclick="copyAccount()" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                    </p>
+                </div>
+                <p class="gift__thanks">Gracias, de verdad.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 08 & 09. PLAYLIST Y MENSAJES -->
+    <section class="media-section" id="playlist">
+        <div class="media-section__half media-section__half--left">
+            <h2 class="media-section__title-nuestra">Nuestra</h2>
+            <h2 class="media-section__title-playlist">Playlist.</h2>
+            <p class="media-section__subtitle-left">La música que nos acompaña</p>
+            <a href="https://open.spotify.com/playlist/7m75MFRKlFzOEjOPMFgTc2?si=W9W4Z3AUREyw8mZdYR17Cw&pi=t-QY_svhRi2Su" target="_blank" class="media-section__spotify-link">
+                <img src="./assets/img/BYVImg/spoti-02.png" alt="Playlist Vero y Humberto"
+                    class="media-section__spotify-img" loading="lazy">
+            </a>
+            <p class="media-section__footer-text">
+                Escúchala antes del gran día,<br>o ponla de fondo mientras te preparas.
+            </p>
+        </div>
+
+        <div class="media-section__half media-section__half--right" id="mensajes">
+            <h2 class="media-section__title-dejanos">Déjanos un</h2>
+            <h2 class="media-section__title-mensaje">Mensaje.</h2>
+            <p class="media-section__subtitle-right">Tus palabras significan más de lo que crees.</p>
+
+            <div class="media-section__postcard" id="openMessageModal">
+                <div class="media-section__postcard-content">
+                    <span class="media-section__postcard-label">Escribe tu mensaje aquí:</span>
+                    <div class="media-section__postcard-lines">
+                        <hr>
+                        <hr>
+                        <hr>
+                        <hr>
+                    </div>
+                    <span class="media-section__postcard-btn">Enviar mensaje</span>
+                </div>
+            </div>
+
+            <div class="media-section__carousel-wrapper">
+                <div class="media-section__carousel-track" id="messagesCarousel">
+                    <!-- Contenido inyectado por JS -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- POP-UP MODAL -->
+    <dialog class="message-modal" id="messageModal">
+        <div class="message-modal__container">
+            <button class="message-modal__close" id="closeMessageModal" aria-label="Cerrar modal">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <div class="message-modal__header">
+                <h3 class="message-modal__title">Déjanos tus</h3>
+                <h3 class="message-modal__subtitle">buenos deseos</h3>
+            </div>
+            <form id="messageForm" class="message-modal__form">
+                <div class="message-modal__input-group">
+                    <input type="text" id="msg-name" placeholder="Tu Nombre" required class="message-modal__input"
+                        autocomplete="off">
+                </div>
+                <div class="message-modal__input-group">
+                    <textarea id="msg-text" placeholder="Escribe tu mensaje aquí..." required
+                        class="message-modal__textarea"></textarea>
+                </div>
+                <button type="submit" class="message-modal__submit">Enviar Mensaje</button>
+            </form>
+        </div>
+    </dialog>
+
+    <!-- 10. CIERRE -->
+    <section class="closing-section">
+        <div class="closing-section__container">
+            <h2 class="closing-section__title">
+                Tu presencia lo es todo<br>
+                <span class="closing-section__title-accent">para nosotros.</span>
+            </h2>
+
+            <div class="closing-section__centerpiece">
+                <h3 class="closing-section__bg-text">
+                    Ocho años juntos.<br>Una vida por delante.
+                </h3>
+                <img src="./assets/img/BYVImg/Sobre.png" alt="Sobre con foto" class="closing-section__envelope"
+                    loading="lazy">
+            </div>
+
+            <div class="closing-section__message-wrapper">
+                <p class="closing-section__message">
+                    Nos hace muchísima ilusión que estés aquí. Gracias por acompañarnos, por apartar este día, por
+                    compartir con nosotros algo tan nuestro.<br><br>
+                    Con amor,<br>Verónica y Humberto.
+                </p>
+            </div>
+
+            <img src="./assets/img/BYVImg/Boda Vero & Bryan-2-03.png" alt="Flor decorativa"
+                class="closing-section__flower" loading="lazy">
+
+            <footer class="closing-section__footer">
+                VERÓNICA & HUMBERTO · 10.10.2026<br>
+                DISEÑADO CON AMOR POR: DISEÑADO CON AMOR POR: <a href="https://www.instagram.com/consentido.brands/"
+                    target="_blank" rel="noopener noreferrer">VOWS & LOVERS</a>
+            </footer>
+        </div>
+    </section>
+</body>
+
+</html>

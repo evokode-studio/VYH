@@ -1,0 +1,2663 @@
+/* 09. CSS VARIABLES */
+:root {
+    --cream: #EBE6E3;
+    --sand: #DBD3D0;
+    --accent: #733510;
+    --sage: #B6B89A;
+    --text: #2B1A0F;
+    --white: #FFFFFF;
+
+    --font-script: 'Pinyon Script', cursive;
+    --font-serif: 'Quattrocento', serif;
+    --font-mono: 'Roboto Mono', monospace;
+
+    --section-pad-y: 100px;
+    --section-pad-x: clamp(24px, 8vw, 120px);
+}
+
+/* RESET & BASICS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--cream);
+    color: var(--text);
+    font-family: var(--font-serif);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* TYPOGRAPHY UTILS */
+.section-title {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: clamp(28px, 4vw, 34px);
+    color: var(--accent);
+    margin-bottom: 20px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.section-subtitle {
+    font-family: var(--font-script);
+    font-size: clamp(40px, 5vw, 52px);
+    color: var(--accent);
+    margin-bottom: -20px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+/* BUTTONS */
+.btn {
+    display: inline-block;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+}
+
+.btn--primary {
+    background: var(--accent);
+    color: var(--cream);
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 13px;
+    padding: 10px 22px;
+    border: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.btn--primary:hover {
+    background: #5C2A0C;
+    transform: translateY(-1px);
+}
+
+.btn--secondary {
+    background: transparent;
+    color: var(--accent);
+    border: 1.5px solid var(--accent);
+    font-family: var(--font-serif);
+    font-size: 13px;
+    padding: 9px 20px;
+    transition: all 0.2s ease;
+}
+
+.btn--secondary:hover {
+    background: var(--accent);
+    color: var(--cream);
+}
+
+/* NAVBAR */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 38.4px;
+    z-index: 1000;
+    transition: transform 0.3s ease, background 0.3s ease;
+    padding: 12px 50px 8px 50px;
+    box-sizing: border-box;
+    /* Optimización de hardware para el scroll */
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.navbar--scrolled {
+    background: rgba(235, 230, 227, 0.96);
+    backdrop-filter: blur(4px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.navbar--hidden {
+    transform: translateY(-100%);
+}
+
+.navbar__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 100%;
+}
+
+.navbar__menu {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar__logo {
+    font-family: var(--font-script);
+    font-size: 24px;
+    color: var(--accent);
+    text-decoration: none;
+    line-height: normal;
+    display: flex;
+    align-items: center;
+    margin-top: -4px;
+}
+
+.navbar__link {
+    font-family: var(--font-mono);
+    font-size: 8.5px;
+    line-height: 1;
+    color: var(--accent);
+    text-decoration: none;
+    text-transform: uppercase;
+    position: relative;
+    padding-bottom: 2px;
+    transition: color 0.4s ease;
+}
+
+.navbar__link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--text);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+.navbar__link:hover {
+    color: var(--text);
+}
+
+.navbar__link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* ESTILOS MOBILE */
+.navbar__toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 100; /* Lo mantiene encima del menú desplegable */
+}
+
+.navbar__toggle span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: var(--dark-brown, #5c3a21); /* Revisa el color de tu variable */
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Cuando el botón recibe la clase .active desde JS */
+.navbar__toggle.active span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+}
+.navbar__toggle.active span:nth-child(2) {
+    opacity: 0; /* Oculta la línea del medio */
+}
+.navbar__toggle.active span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+}
+
+/* HERO */
+.hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    background: var(--text);
+    overflow: hidden;
+}
+
+.hero__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center 70%;
+    z-index: 1;
+}
+
+.hero__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 2;
+}
+
+.hero__content {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    max-width: 1024px;
+    margin: 0 auto;
+}
+
+.hero__center {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.hero__title {
+    font-family: var(--font-script);
+    font-size: clamp(60px, 8vw, 100px);
+    font-weight: 400;
+    color: var(--white);
+    line-height: 1;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+}
+
+.hero__floating-text {
+    font-family: var(--font-serif);
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--white);
+    line-height: 1;
+    margin: 0;
+    position: absolute;
+    bottom: 25%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    text-align: center;
+}
+
+.hero__bottom {
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 50px;
+    box-sizing: border-box;
+}
+
+.hero__date,
+.hero__location {
+    font-family: var(--font-mono);
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--white);
+    line-height: 1;
+}
+
+
+/* QUOTE */
+.quote {
+    background: var(--sage);
+
+    /* 1. Control de Altura: 
+       Mínimo 550px para proteger en pantallas chaparras.
+       Ideal 100vh para ocupar toda la pantalla de forma estética.
+       Máximo 900px para evitar el exceso de espacio en pantallas muy altas. */
+    min-height: clamp(550px, 100vh, 900px);
+    height: auto;
+
+    /* 2. Padding de Seguridad:
+       Mínimo 60px de respiro (arriba y abajo), ideal 8vh, y tope máximo de 100px. */
+    padding: clamp(60px, 8vh, 100px) 0;
+
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.quote__container {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.quote__center-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+.quote__text-top {
+    font-family: var(--font-script);
+    font-size: 5.85vw;
+    color: var(--accent);
+    line-height: 1;
+    font-weight: 400;
+    transform: rotate(-3.24deg);
+    margin-bottom: -1.46vw;
+    margin-left: -5vw;
+    position: relative;
+    z-index: 3;
+}
+
+.quote__text-bottom {
+    font-family: var(--font-script);
+    font-size: 5.85vw;
+    color: var(--accent);
+    line-height: 1;
+    font-weight: 400;
+    transform: rotate(-3.24deg);
+    margin-top: -1.46vw;
+    margin-right: -4vw;
+    position: relative;
+    z-index: 3;
+}
+
+.quote__images {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5vw;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.quote__img {
+    width: 9.7vw;
+    height: 12.66vw;
+    object-fit: cover;
+    border: 0.3vw solid var(--text);
+}
+
+.quote__flower {
+    position: absolute;
+    height: 56.64vw;
+    width: auto;
+    top: 50%;
+    right: -2vw;
+    transform: translateY(-50%) rotate(-10deg);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.quote__pin {
+    position: absolute;
+    height: 6.73vw;
+    width: auto;
+    top: 35%;
+    right: 22vw;
+    transform: rotate(-11.94deg);
+    z-index: 2;
+    pointer-events: none;
+}
+
+
+/* COUNTDOWN */
+.countdown {
+    background: var(--cream);
+    min-height: 107vh;
+    padding: 8vw 0 4vw 0;
+    text-align: center;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.countdown__watermark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 1;
+    z-index: 1;
+}
+
+.countdown__content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.countdown__label {
+    font-family: var(--font-script);
+    font-size: 3.51vw;
+    color: var(--text);
+    line-height: 1;
+    margin-top: 0;
+    margin-bottom: 0.5vw;
+}
+
+.countdown__title {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 7.03vw;
+    color: var(--accent);
+    line-height: 1;
+    margin: 0 0 4vw 0;
+}
+
+.countdown__date {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 1.95vw;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 6vw;
+}
+
+.countdown__timer {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+    align-items: center;
+    width: 66.66vw;
+    margin: 0 auto 7vw auto;
+}
+
+.countdown__item {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.countdown__item span {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 8.55vw;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 1.5vw;
+}
+
+.countdown__item p {
+    font-family: var(--font-mono);
+    font-weight: 400;
+    font-size: 1.56vw;
+    color: var(--accent);
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+.countdown__separator {
+    width: 0.15vw;
+    height: 11vw;
+    background-color: var(--accent);
+    opacity: 0.8;
+}
+
+.countdown__actions {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 0;
+}
+
+.btn--calendar {
+    background: var(--sage);
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-weight: 300;
+    font-style: italic;
+    font-size: 1.17vw;
+    padding: 1vw 2vw;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.btn--calendar:hover {
+    background: var(--accent);
+    color: var(--white);
+}
+
+.calendar-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--white);
+    border: 1px solid var(--sand);
+    border-radius: 4px;
+    margin-top: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    width: 200px;
+    text-align: left;
+}
+
+.calendar-dropdown.hidden {
+    display: none;
+}
+
+.calendar-dropdown a {
+    display: block;
+    padding: 10px 15px;
+    color: var(--text);
+    text-decoration: none;
+    font-family: var(--font-serif);
+    font-size: 14px;
+    border-bottom: 1px solid var(--sand);
+}
+
+.calendar-dropdown a:hover {
+    background: var(--cream);
+}
+
+/* HISTORIA */
+.story {
+    background: var(--sand);
+    min-height: 155vh;
+    padding: 10vw 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.story__container {
+    width: 100%;
+    max-width: 1024px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.story__top {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 4vw;
+    margin-bottom: 1.5vw;
+}
+
+.story__frame {
+    width: 38vw;
+    height: 44vw;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.story__bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 59vw;
+    margin: 0 auto;
+}
+
+.story__text {
+    width: 100%;
+    font-family: var(--font-mono);
+    font-size: 1.25vw;
+    color: var(--text);
+    line-height: 1.6;
+    text-align: justify;
+}
+
+.story__text p {
+    margin-bottom: 1.5vw;
+}
+
+.story__signature {
+    font-family: var(--font-script);
+    font-weight: 400;
+    font-size: 3.9vw;
+    color: var(--accent);
+    line-height: 1;
+    width: auto;
+    align-self: flex-end;
+    margin-top: 2vw;
+    margin-right: 0;
+}
+
+.story__title-left,
+.story__title-right {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 3.51vw;
+    color: var(--accent);
+    line-height: 1.1;
+    text-align: center;
+}
+
+.story__title-left {
+    width: 12.9vw;
+    text-align: right;
+}
+
+.story__title-right {
+    width: 12.69vw;
+    text-align: left;
+}
+
+.story__img-postal {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+
+/* ITINERARY */
+/* --- TÍTULOS PRINCIPALES --- */
+.itinerary__title-top {
+    font-family: var(--font-quattrocento);
+    font-weight: 400;
+    font-size: 7.03vw;
+    color: var(--dark-brown);
+    line-height: 1;
+}
+
+.itinerary__title-bottom {
+    font-family: var(--font-script);
+    font-weight: 400;
+    font-size: 8.98vw;
+    color: var(--accent);
+    line-height: 1;
+    margin-top: -4vw;
+    margin-left: 12vw;
+}
+
+/* --- CONTENEDOR PRINCIPAL --- */
+.itinerary__timeline {
+    width: 94vw;
+    margin: 0 auto;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 4vw;
+    column-gap: 27vw;
+}
+
+/* --- CONECTORES --- */
+.itinerary__connector {
+    position: absolute;
+    top: 50%;
+    width: 13.5vw;
+    height: 0;
+    border-top: 2px dashed var(--dark-brown, #733510);
+    opacity: 0.6;
+}
+
+/* --- DRESSCODE --- */
+.itinerary__dresscode {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    font-family: var(--font-mono);
+    font-size: 1.2vw;
+    line-height: 1.4;
+    padding-left: 2vw;
+    margin-top: 6vw;
+    transform: none;
+}
+
+.itinerary__dresscode p {
+    padding-left: 1.2vw;
+    text-indent: -1.2vw;
+}
+
+/* --- ESTILOS DE TEXTO DE LOS EVENTOS --- */
+.itinerary__event-title {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 1.75vw;
+    color: var(--accent);
+    margin-top: 1vw;
+    margin-bottom: 0.5vw;
+}
+
+.itinerary__event-info p:nth-of-type(1) {
+    font-weight: 700;
+}
+
+.itinerary__event-place {
+    text-decoration: underline;
+    font-weight: 700;
+}
+
+/* --- BOTÓN DE MAPAS Y HOVER --- */
+.btn-maps {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 13.67vw;
+    height: 2.41vw;
+    background-color: var(--accent);
+    color: var(--cream);
+    font-family: var(--font-quattrocento);
+    font-weight: 700;
+    font-size: 1.17vw;
+    text-decoration: none;
+    border-radius: 2px;
+    border: 1px solid transparent;
+    /* Optimización: Solo animamos propiedades específicas */
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn-maps:hover {
+    background-color: var(--cream);
+    color: var(--dark-brown);
+    border-color: var(--dark-brown);
+}
+
+/* --- AGRADECIMIENTO FINAL --- */
+.itinerary__footer {
+    width: 94vw;
+    margin: 5vw auto 0;
+    padding-bottom: 18vw;
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 8vw;
+    margin-bottom: 12vw;
+    text-align: left;
+}
+
+.itinerary__thanks {
+    font-family: var(--font-script);
+    font-weight: 400;
+    font-size: 3.51vw;
+    width: 18.75vw;
+    line-height: 1.1;
+    color: var(--accent);
+    margin-left: 20vw;
+}
+
+.itinerary__line {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 8vw;
+    bottom: 8vw;
+    width: 0;
+    border-left: 2px dashed var(--dark-brown, #733510);
+    opacity: 0.6;
+}
+
+/* --- LÍNEAS HORIZONTALES (CONECTORES) Y CONTENEDOR DE IMAGEN --- */
+.itinerary__img-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 1.5vw;
+}
+
+.itinerary__img {
+    height: auto;
+    display: block;
+}
+
+.itinerary__event--left .itinerary__connector {
+    left: 100%;
+}
+
+.itinerary__event--right .itinerary__connector {
+    right: 100%;
+}
+
+/* --- ALINEACIÓN DE TEXTOS Y BOTONES --- */
+.itinerary__event-info p {
+    margin: 0.3vw 0;
+}
+
+.itinerary__event--left .btn-maps {
+    margin-left: auto;
+    margin-top: 0.8vw;
+}
+
+.itinerary__event--right .btn-maps {
+    margin-right: auto;
+    margin-top: 0.8vw;
+}
+
+.itinerary__header {
+    margin-top: 10vw;
+    text-align: center;
+    margin-bottom: 6vw;
+}
+
+/* --- EVENTOS Y ALINEACIÓN ESTRICTA --- */
+.itinerary__event {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.itinerary__event-info {
+    width: 100%;
+}
+
+.itinerary__event--left {
+    align-items: flex-end;
+}
+
+.itinerary__event--left .itinerary__event-info {
+    text-align: right;
+}
+
+.itinerary__event--right {
+    align-items: flex-start;
+}
+
+.itinerary__event--right .itinerary__event-info {
+    text-align: left;
+}
+
+.itinerary__spacer {
+    width: 100%;
+}
+
+.itinerary__subtitle {
+    font-family: var(--font-mono);
+    font-style: italic;
+    font-weight: 300;
+    font-size: 1.66vw;
+    color: var(--dark-brown);
+    margin-top: 1.5vw;
+}
+
+/* --- IMÁGENES (Dimensiones exactas) --- */
+.itinerary__img--religiosa {
+    width: 23.31vw;
+    height: 16vw;
+}
+
+.itinerary__img--civil {
+    width: 18.53vw;
+    height: 16.29vw;
+}
+
+.itinerary__img--recepcion {
+    width: 18.96vw;
+    height: 15.58vw;
+}
+
+.itinerary__img--cena {
+    width: 13.20vw;
+    height: 14.28vw;
+}
+
+/* FAQ */
+/* --- CONTENEDOR PRINCIPAL --- */
+/* --- CONTENEDOR PRINCIPAL --- */
+.faqs {
+    background-color: var(--sage);
+    min-height: 100vh;
+    /* Garantiza que ocupe al menos una pantalla completa */
+    height: auto;
+    /* Deja que las preguntas dicten la altura real */
+    width: 100%;
+
+    /* 🔴 clamp(Mínimo px, Ideal vw, Máximo px) */
+    padding-top: clamp(60px, 8vw, 120px);
+
+    /* 🔴 El secreto está aquí: un padding inferior fijo pero flexible */
+    padding-bottom: clamp(80px, 10vw, 150px);
+
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+/* --- ENCABEZADO --- */
+.faqs__header {
+    text-align: center;
+    margin-bottom: 6vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.faqs__title-top {
+    font-family: var(--font-quattrocento);
+    font-weight: 400;
+    font-size: 7.03vw;
+    color: var(--dark-brown);
+    line-height: 1;
+}
+
+.faqs__title-bottom {
+    font-family: var(--font-script);
+    font-weight: 400;
+    font-size: 8.98vw;
+    color: var(--accent);
+    line-height: 1;
+    margin-top: -3.5vw;
+    margin-left: 20vw;
+}
+
+/* --- GRID DE 2 COLUMNAS --- */
+.faqs__grid {
+    width: 86vw;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 8vw;
+}
+
+.faqs__column {
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
+}
+
+/* --- DISEÑO DE LAS PREGUNTAS (FAQ) --- */
+.faq {
+    background: transparent;
+    width: 100%;
+}
+
+/* --- DISEÑO DEL SUMMARY --- */
+.faq__summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    cursor: pointer;
+    padding-bottom: 0.8vw;
+    border-bottom: 2px dashed var(--accent);
+    outline: none;
+}
+
+.faq__summary:focus {
+    outline: none;
+}
+
+/* --- FLECHA ESTILIZADA --- */
+.faq__icon {
+    display: inline-block;
+    width: 1.2vw;
+    height: 1.2vw;
+    border-bottom: 2px solid var(--dark-brown);
+    border-right: 2px solid var(--dark-brown);
+    transform: rotate(45deg);
+    flex-shrink: 0;
+    margin-left: 2vw;
+    /* Optimización de animación de flecha */
+    transition: transform 0.3s ease;
+    will-change: transform;
+}
+
+details[open] .faq__icon {
+    transform: rotate(225deg) translate(-0.2vw, -0.2vw);
+}
+
+.faq__summary::-webkit-details-marker {
+    display: none;
+}
+
+.faq__title {
+    font-family: var(--font-quattrocento);
+    font-weight: 400;
+    font-size: 1.95vw;
+    color: var(--dark-brown);
+    line-height: 1;
+}
+
+/* --- TEXTO DE RESPUESTA --- */
+.faq__content {
+    font-family: var(--font-mono);
+    font-size: 1.17vw;
+    color: var(--dark-brown);
+    line-height: 1.6;
+    padding-top: 1.5vw;
+    padding-bottom: 1vw;
+}
+
+/* --- FOOTER (SELLO Y TEXTO) --- */
+.faqs__footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 4vw;
+}
+
+.faqs__seal {
+    width: 10vw;
+    height: auto;
+    margin-bottom: 1vw;
+}
+
+.faqs__thanks {
+    font-family: var(--font-script);
+    font-weight: 400;
+    font-size: 6vw;
+    color: var(--accent);
+    line-height: 1;
+}
+
+/* GALLERY */
+/* --- CONTENEDOR PRINCIPAL --- */
+.gallery {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- IMAGEN DE FONDO --- */
+.gallery__bg-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.gallery__bg-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100vh;
+    height: 100vw;
+    object-fit: cover;
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+/* --- FOTOS FRONTALES --- */
+.gallery__content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 80vw;
+    height: 100%;
+}
+
+.gallery__photo {
+    width: 28vw;
+    height: 75vh;
+    object-fit: cover;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* REGALO */
+/* --- CONTENEDOR DE LA SECCIÓN --- */
+.gift {
+    width: 100vw;
+    min-height: 104.16vh;
+    /* 🔴 Cambiamos height fijo por min-height */
+    height: auto;
+    /* 🔴 Permitimos que el contenedor crezca según el contenido */
+    padding-bottom: 60px;
+    /* 🔴 Agregamos un colchón inferior para proteger el texto */
+    background-color: var(--cream);
+    position: relative;
+    overflow: hidden;
+}
+
+.gift__container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+    padding-top: 15vh;
+    padding-left: 13.17vw;
+}
+
+/* --- CONTENIDO GENERAL Y HEADER --- */
+.gift__content {
+    width: 38.02vw;
+    margin-left: 4.98vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.gift__header {
+    position: relative;
+    margin-bottom: 14vh;
+}
+
+/* --- TÍTULOS --- */
+.gift__title-bottom {
+    font-family: var(--font-script);
+    font-weight: 400;
+    font-size: 4.68vw;
+    color: var(--accent);
+    line-height: 1;
+    position: absolute;
+    top: 4.68vh;
+    left: 13.9vw;
+    white-space: nowrap;
+}
+
+.gift__title-top {
+    font-family: var(--font-quattrocento);
+    font-weight: 400;
+    font-size: 4.49vw;
+    color: var(--dark-brown);
+    line-height: 1;
+}
+
+/* --- TEXTOS BASE --- */
+.gift__text {
+    font-family: var(--font-mono);
+    font-weight: 300;
+    font-size: 1.27vw;
+    color: var(--text);
+    line-height: 1.6;
+    margin-bottom: 1.5vw;
+    text-align: justify;
+}
+
+/* --- DATOS BANCARIOS --- */
+.gift__bank {
+    font-family: var(--font-mono);
+    font-size: 1.27vw;
+    margin: 2vw 0;
+    width: 100%;
+}
+
+.gift__bank strong {
+    font-weight: 700;
+}
+
+.gift__label {
+    font-weight: 300;
+    color: var(--text);
+}
+
+.gift__data {
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.gift__account {
+    display: flex;
+    align-items: center;
+    gap: 0.5vw;
+}
+
+.gift__copy-icon {
+    width: 1.5vw;
+    height: 1.5vw;
+    cursor: pointer;
+    color: var(--accent);
+    transition: transform 0.2s ease, color 0.2s ease;
+    will-change: transform;
+}
+
+.gift__copy-icon:hover {
+    transform: scale(1.15);
+    color: var(--dark-brown);
+}
+
+/* --- AGRADECIMIENTO --- */
+.gift__thanks {
+    font-family: var(--font-mono);
+    font-weight: 300;
+    /* 🔴 clamp(Mínimo en px, Ideal en vw, Máximo en px) */
+    font-size: clamp(14px, 1.27vw, 22px);
+    color: var(--accent);
+    /* 🔴 Hacemos lo mismo con el margen para que siempre tenga espacio real */
+    margin-top: clamp(20px, 3vw, 40px);
+}
+
+/* --- IMAGEN --- */
+.gift__img {
+    width: 31.15vw;
+    height: 68.22vh;
+    object-fit: cover;
+    border: none;
+    border-radius: 0;
+    margin-top: 2.08vh;
+}
+
+
+/* PLAYLIST & MESSAGES SPLIT */
+/* --- CONTENEDOR PRINCIPAL --- */
+.media-section {
+    position: relative;
+    width: 100vw;
+    height: 130.2vh;
+    display: flex;
+    flex-direction: row;
+    background-color: var(--cream);
+    overflow: hidden;
+}
+
+.media-section__half {
+    position: relative;
+    width: 50vw;
+    height: 100%;
+}
+
+.media-section__half--right {
+    background-color: var(--sage-green, #b2b8a3);
+    display: flex;
+    flex-direction: column;
+    /* Empuja todo el contenido (postal y carrusel) hacia la parte inferior */
+    justify-content: flex-end;
+    align-items: center;
+    /* Le da un respiro al carrusel respecto al borde inferior */
+    padding-bottom: 10vh;
+}
+
+/* --- TÍTULOS --- */
+.media-section__title-nuestra,
+.media-section__title-dejanos {
+    position: absolute;
+    top: 10vh;
+    font-family: var(--font-quattrocento);
+    font-weight: 300;
+    font-size: 3.71vw;
+    color: var(--dark-brown);
+}
+
+.media-section__title-nuestra {
+    left: 12.94vw;
+}
+
+.media-section__title-dejanos {
+    left: 13.42vw;
+}
+
+.media-section__title-playlist,
+.media-section__title-mensaje {
+    position: absolute;
+    top: 13.5vh;
+    font-family: var(--font-script);
+    font-size: 4.1vw;
+    color: var(--accent);
+    font-weight: 400;
+}
+
+.media-section__title-playlist {
+    left: 25.3vw;
+}
+
+.media-section__title-mensaje {
+    left: 24.65vw;
+}
+
+/* --- SUBTÍTULOS --- */
+.media-section__subtitle-left,
+.media-section__subtitle-right {
+    position: absolute;
+    top: 24.5vh;
+    font-family: var(--font-mono);
+    font-style: italic;
+    font-size: 1.27vw;
+    margin-top: 3vh;
+}
+
+.media-section__subtitle-left {
+    left: 15.15vw;
+    color: var(--text);
+}
+
+.media-section__subtitle-right {
+    left: 8.45vw;
+    color: var(--dark-brown);
+    white-space: nowrap;
+}
+
+/* --- PLAYLIST (Izquierda) --- */
+.media-section__spotify-link {
+    position: absolute;
+    top: 29.5vh;
+    left: 5.86vw;
+    transition: transform 0.3s ease;
+    will-change: transform;
+}
+
+.media-section__spotify-link:hover {
+    transform: translateY(-1vh);
+}
+
+.media-section__spotify-img {
+    width: 37.96vw;
+    height: 80vh;
+    object-fit: contain;
+}
+
+.media-section__footer-text {
+    position: absolute;
+    top: 110vh;
+    left: 13.95vw;
+    font-family: var(--font-mono);
+    font-style: italic;
+    font-size: 0.97vw;
+    text-align: center;
+    color: var(--text);
+    line-height: 1.5;
+    white-space: nowrap;
+}
+
+/* --- POSTAL INTERACTIVA --- */
+.media-section__postcard {
+    position: relative;
+    /* Magia de Flexbox: Obliga a la postal a renderizarse ANTES que el carrusel */
+    order: 1;
+    /* Esta será tu separación constante y segura entre el cuadro y los círculos */
+    margin-bottom: 6vh;
+
+    /* El resto se queda exactamente igual */
+    width: 25vw;
+    height: 18vw;
+    background-image: url('/assets/img/BYVImg/Recurso\ 13.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
+    filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.15));
+    cursor: pointer;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    will-change: transform, filter;
+
+    /* Aseguramos matar cualquier top/left residual */
+    top: auto;
+    left: auto;
+}
+
+.media-section__postcard:hover {
+    transform: scale(1.03) rotate(-2deg);
+    filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.2));
+}
+
+.media-section__postcard-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 75%;
+    height: 70%;
+    pointer-events: none;
+}
+
+.media-section__postcard-label {
+    font-family: var(--font-mono);
+    font-size: 0.9vw;
+    color: var(--accent);
+    margin-bottom: 1.5vw;
+}
+
+.media-section__postcard-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2vw;
+    margin-bottom: 1.5vw;
+}
+
+.media-section__postcard-lines hr {
+    border: none;
+    border-bottom: 1px solid var(--text);
+    width: 100%;
+    margin: 0;
+}
+
+.media-section__postcard-btn {
+    font-family: var(--font-mono);
+    font-size: 0.9vw;
+    color: var(--accent);
+    text-decoration: underline;
+    align-self: flex-end;
+}
+
+/* --- CARRUSEL Y MANTELES --- */
+.media-section__carousel-wrapper {
+    position: relative;
+    /* Magia de Flexbox: Obliga al carrusel a renderizarse DESPUÉS de la postal */
+    order: 2;
+    width: 50vw;
+    overflow: hidden;
+
+    /* Aseguramos matar cualquier bottom/left residual */
+    bottom: auto;
+    left: auto;
+}
+
+.media-section__carousel-track {
+    display: flex;
+    gap: 3vw;
+    width: max-content;
+    animation: scrollCarousel 20s linear infinite;
+    /* Aceleración por hardware forzada para el carrusel infinito */
+    will-change: transform;
+}
+
+@keyframes scrollCarousel {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+
+    to {
+        transform: translate3d(-50%, 0, 0);
+    }
+}
+
+.media-section__mat {
+    width: 22vw;
+    height: 22vw;
+    background-image: url('/assets/img/BYVImg/Recurso\ 15.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4.5vw;
+    text-align: center;
+}
+
+.media-section__mat-text {
+    font-family: var(--font-mono);
+    font-size: 0.9vw;
+    color: var(--text);
+    line-height: 1.4;
+    margin-bottom: 1vw;
+}
+
+.media-section__mat-author {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.8vw;
+    color: var(--accent);
+    margin-top: 0.5vw;
+}
+
+
+
+/* --- REDISEÑO DEL MODAL (Premium) --- */
+.message-modal {
+    margin: auto;
+    border: none;
+    border-radius: 12px;
+    background: transparent;
+    width: 45vw;
+    max-width: 600px;
+    padding: 0;
+    overflow: visible;
+}
+
+.message-modal::backdrop {
+    background: rgba(43, 38, 33, 0.4);
+    backdrop-filter: blur(8px);
+}
+
+.message-modal__container {
+    background-color: var(--cream);
+    padding: 4vw;
+    position: relative;
+    border-radius: 8px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.message-modal__close {
+    position: absolute;
+    top: 1.5vw;
+    right: 1.5vw;
+    background: none;
+    border: none;
+    color: var(--dark-brown);
+    cursor: pointer;
+    width: 2vw;
+    height: 2vw;
+    transition: transform 0.2s ease;
+    will-change: transform;
+}
+
+.message-modal__close:hover {
+    transform: scale(1.1);
+}
+
+.message-modal__header {
+    text-align: center;
+    margin-bottom: 3vw;
+}
+
+.message-modal__title {
+    font-family: var(--font-quattrocento);
+    font-size: 2.5vw;
+    color: var(--dark-brown);
+    line-height: 1;
+}
+
+.message-modal__subtitle {
+    font-family: var(--font-script);
+    font-size: 3.5vw;
+    color: var(--accent);
+    line-height: 1;
+    margin-top: -0.5vw;
+}
+
+.message-modal__form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
+}
+
+.message-modal__input,
+.message-modal__textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--text);
+    font-family: var(--font-mono);
+    font-size: 1.1vw;
+    color: var(--dark-brown);
+    padding: 1vw 0.5vw;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.message-modal__input:focus,
+.message-modal__textarea:focus {
+    border-bottom: 2px solid var(--accent);
+}
+
+.message-modal__textarea {
+    resize: none;
+    height: 8vh;
+}
+
+.message-modal__submit {
+    margin-top: 1vw;
+    padding: 1.2vw 2vw;
+    background-color: transparent;
+    border: 1px solid var(--dark-brown);
+    color: var(--dark-brown);
+    font-family: var(--font-quattrocento);
+    font-size: 1.2vw;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    align-self: center;
+}
+
+.message-modal__submit:hover {
+    background-color: var(--dark-brown);
+    color: var(--cream);
+}
+
+
+/* CLOSING */
+/* --- CONTENEDOR PRINCIPAL --- */
+.closing-section {
+    width: 100vw;
+    height: 110vh;
+    /* 🔴 Reducido drásticamente de 200vh a 110vh */
+    background-color: var(--cream, #E6E1DC);
+    position: relative;
+    overflow: hidden;
+}
+
+.closing-section__container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* --- TÍTULO SUPERIOR --- */
+.closing-section__title {
+    position: absolute;
+    top: 12vh;
+    left: 12.87vw;
+    width: 77.36vw;
+    font-family: var(--font-quattrocento);
+    font-size: 6.31vw;
+    color: var(--dark-brown);
+    line-height: 1.1;
+    font-weight: 400;
+    text-align: left;
+}
+
+.closing-section__title-accent {
+    display: block;
+    text-align: right;
+    color: var(--accent);
+}
+
+.closing-section__title-right {
+    display: block;
+    margin-left: 25%;
+}
+
+/* --- COMPOSICIÓN CENTRAL --- */
+.closing-section__centerpiece {
+    position: absolute;
+    top: 32vh;
+    left: 0;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.closing-section__bg-text {
+    position: absolute;
+    font-family: var(--font-script);
+    font-size: 12.02vw;
+    color: var(--accent);
+    text-align: center;
+    white-space: nowrap;
+    line-height: 1.1;
+    font-weight: 400;
+    transform: rotate(-6.52deg);
+    z-index: 1;
+}
+
+.closing-section__envelope {
+    position: relative;
+    z-index: 2;
+    width: 37.45vw;
+    height: auto;
+    transform: rotate(6deg);
+    filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.15));
+}
+
+.closing-section__composition {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 8vh 0;
+}
+
+.closing-section__background-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Pinyon Script', cursive;
+    font-weight: 400;
+    font-size: clamp(60px, 8vw, 123.13px);
+    color: #8C593B;
+    text-align: center;
+    white-space: nowrap;
+    z-index: 1;
+    line-height: 1.2;
+}
+
+/* --- MENSAJE FINAL --- */
+.closing-section__message-wrapper {
+    position: absolute;
+    top: 65vh;
+    left: 18.54vw;
+    width: 58.59vw;
+}
+
+.closing-section__message {
+    font-family: var(--font-quattrocento);
+    font-size: 1.95vw;
+    color: var(--dark-brown);
+    line-height: 1.4;
+    font-weight: 400;
+    text-align: left;
+}
+
+/* --- FLOR DECORATIVA --- */
+.closing-section__flower {
+    position: absolute;
+    top: 50vh;
+    left: 66vw;
+    width: 44.64vw;
+    height: auto;
+    transform: rotate(-7deg);
+    z-index: 3;
+    pointer-events: none;
+}
+
+
+/* --- FOOTER --- */
+.closing-section__footer {
+    position: absolute;
+    top: 188vh;
+    /* 🔴 Lo regresamos a top, pero ajustado a la nueva altura del lienzo */
+    left: 5.69vw;
+    font-family: var(--font-mono);
+    font-size: 1.17vw;
+    color: var(--dark-brown);
+    line-height: 1.5;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.closing-section__footer a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+/* =========================================
+   MEDIA QUERIES GLOBALES
+========================================= */
+
+/* --- 1. ESCRITORIO (Límites de crecimiento > 1024px) --- */
+/* =========================================
+   MEDIA QUERIES GLOBALES
+========================================= */
+
+/* --- 1. ESCRITORIO (Límites de crecimiento > 1024px) --- */
+@media (max-width: 1024px) {
+    body .faqs {
+        /* Usamos max-content para que la caja mida exactamente lo que su contenido abierto/cerrado requiera */
+        height: max-content !important;
+        min-height: 0 !important;
+        padding-bottom: 5vh !important;
+        /* Reducido al mínimo estético */
+    }
+
+    /* --- REGLAS GENERALES PARA LA SECCIÓN (En tu media query de ~1100px o 1024px) --- */
+    .media-section {
+        min-height: 100vh;
+        height: auto;
+        /* Dejamos que el contenido mande */
+    }
+
+    /* Si a 1070px quieres que sigan lado a lado (50/50), usa width: 50vw. 
+   Si quieres que se apilen (una arriba de otra), usa width: 100vw. */
+    .media-section__half {
+        width: 50vw;
+        /* Ajusta a 100vw si prefieres diseño de 1 sola columna aquí */
+        height: auto;
+        min-height: 100vh;
+    }
+
+    /* --- COLUMNA DERECHA: FLUJO PERFECTO --- */
+    .media-section__half--right {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        /* Empezamos a apilar desde arriba */
+        align-items: center;
+        height: auto;
+        padding-top: 10vh;
+        /* Respiro superior */
+        padding-bottom: 5vh;
+        /* Respiro inferior para el carrusel */
+        gap: 0;
+        /* Controlaremos los espacios con márgenes específicos */
+    }
+
+    /* 1. Metemos los títulos al flujo normal eliminando lo absoluto */
+    .media-section__half--right .media-section__title-dejanos,
+    .media-section__half--right .media-section__title-mensaje,
+    .media-section__half--right .media-section__subtitle-right {
+        position: relative;
+        top: 0;
+        left: 0;
+        margin: 0;
+        text-align: center;
+    }
+
+    /* 2. Ajuste estético de la tipografía para que se empalme elegante */
+    .media-section__half--right .media-section__title-mensaje {
+        margin-top: -1rem;
+    }
+
+    .media-section__half--right .media-section__subtitle-right {
+        margin-top: 1rem;
+        margin-bottom: 4rem;
+        /* Este margen es clave: empuja la postal hacia abajo */
+        white-space: normal;
+        /* Permite que el subtítulo baje de línea si no cabe */
+    }
+
+    /* 3. Postal interactiva */
+    .media-section__postcard {
+        position: relative;
+        order: unset;
+        /* Ya no hace falta forzar el orden */
+        margin-bottom: 4rem;
+        /* Separación exacta entre postal y carrusel */
+        top: 0;
+        left: 0;
+    }
+
+    /* 4. Carrusel (se posicionará naturalmente al final) */
+    .media-section__carousel-wrapper {
+        position: relative;
+        order: unset;
+        width: 100%;
+        /* Toma todo el ancho de su mitad */
+        bottom: 0;
+        left: 0;
+        margin: 0;
+    }
+
+    .message-modal {
+        /* Aumentamos el ancho relativo para que ocupe más espacio */
+        width: 70vw !important;
+        max-width: 700px !important;
+    }
+
+    .message-modal__container {
+        padding: 6vw !important;
+        /* Más aire interno */
+    }
+
+    .message-modal__title {
+        font-size: 4vw !important;
+        /* Fuente un poco más grande que en escritorio */
+    }
+
+    .message-modal__subtitle {
+        font-size: 5.5vw !important;
+    }
+
+    .message-modal__input,
+    .message-modal__textarea {
+        font-size: 2vw !important;
+        /* Textos de input más legibles */
+        padding: 1.5vw 0.5vw !important;
+    }
+
+    .message-modal__submit {
+        font-size: 2vw !important;
+        padding: 1.5vw 3vw !important;
+    }
+
+    .message-modal__close {
+        width: 3vw !important;
+        height: 3vw !important;
+    }
+
+    .closing-section {
+        height: auto;
+        min-height: 100vh;
+        padding: 8vh 5vw 4vh 5vw;
+        /* Aire arriba, a los lados y abajo */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Convertimos el contenedor en una columna flexible */
+    .closing-section__container {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 6vh;
+        /* 🔴 Esta es la magia: espacio uniforme entre cada elemento */
+        position: relative;
+    }
+
+    /* Reseteamos el Título (Adios absolute) */
+    .closing-section__title {
+        position: relative;
+        top: auto;
+        left: auto;
+        width: 90%;
+        font-size: 6vw;
+        text-align: center;
+    }
+
+    .closing-section__title-right {
+        margin-left: 0;
+        /* Centramos todo el texto fluido */
+    }
+
+    /* Reseteamos la Composición Central (El sobre empujará el texto) */
+    .closing-section__centerpiece {
+        position: relative;
+        top: auto;
+        left: auto;
+        width: 100%;
+        margin: 2vh 0;
+    }
+
+    /* Mantenemos el texto de fondo rotado detrás del sobre */
+    .closing-section__bg-text {
+        font-size: 10vw;
+    }
+
+    /* Reseteamos el Mensaje */
+    .closing-section__message-wrapper {
+        position: relative;
+        top: auto;
+        left: auto;
+        width: 80%;
+    }
+
+    .closing-section__message {
+        font-size: 3vw;
+        text-align: center;
+    }
+
+    /* Posicionamos la Flor para que no estorbe el flujo central */
+    .closing-section__flower {
+        top: auto;
+        bottom: 5vh;
+        /* Anclada al fondo de la sección */
+        right: -5vw;
+        left: auto;
+        width: 35vw;
+    }
+
+    /* Reseteamos el Footer */
+    .closing-section__footer {
+        position: relative;
+        top: auto;
+        left: auto;
+        width: 100%;
+        text-align: center;
+        margin-top: auto;
+        font-size: 2vw;
+    }
+
+}
+
+
+/* --- 2. MÓVILES (< 768px) --- */
+@media (max-width: 768px) {
+
+    /* Navbar */
+    .navbar {
+        height: auto;
+        padding: 15px 24px;
+    }
+.navbar__menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--cream, #E6E1DC); /* Color de fondo */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem 0;
+        /* Estado inactivo (Oculto y desplazado hacia arriba) */
+        opacity: 0;
+        transform: translateY(-15px);
+        pointer-events: none;
+        transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    
+    /* Estado activo (Visible y en su posición final) */
+    .navbar__menu.active {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+
+    .navbar__toggle {
+        display: flex;
+    }
+
+    details > summary {
+    list-style: none;
+    cursor: pointer;
+}
+details > summary::-webkit-details-marker {
+    display: none; 
+}
+/* Preparamos el contenido para animarse */
+.faq__content {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    margin-top: 0;
+    transition: max-height 0.5s ease, opacity 0.5s ease, margin-top 0.5s ease;
+}
+
+/* Cuando el <details> está abierto */
+details[open] .faq__content {
+    opacity: 1;
+    max-height: 200px; /* Un valor lo bastante grande para que quepa tu texto */
+    margin-top: 15px;
+}
+
+/* Animación del ícono (Si usas un '+' o una flechita en .faq__icon) */
+.faq__icon {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+details[open] .faq__summary .faq__icon {
+    transform: rotate(180deg); /* O 45deg si es un símbolo de '+' */
+}
+    /* Hero */
+    .hero__bottom {
+        padding: 0 24px;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        bottom: 30px;
+    }
+
+    /* Story */
+    .story {
+        min-height: 100vh;
+        padding: 15vw 5vw;
+    }
+
+    .story__top {
+        flex-direction: column;
+        gap: 6vw;
+        margin-bottom: 10vw;
+    }
+
+    .story__title-left,
+    .story__title-right {
+        font-size: 8vw;
+        width: 100%;
+    }
+
+    .story__frame {
+        width: 75vw;
+        height: 87vw;
+    }
+
+    .story__bottom {
+        width: 90vw;
+        align-items: flex-end;
+    }
+
+    .story__text {
+        font-size: 3vw;
+        line-height: 1.8;
+    }
+
+    .story__signature {
+        font-size: 10vw;
+        width: 100%;
+        margin-top: 14vw;
+        margin-right: 0;
+    }
+
+    /* Countdown */
+    .countdown {
+        min-height: 100vh;
+        padding: 12vw 0 8vw 0;
+    }
+
+    .countdown__label {
+        font-size: 8vw;
+        margin-bottom: 2vw;
+    }
+
+    .countdown__title {
+        font-size: 14vw;
+        margin-bottom: 6vw;
+    }
+
+    .countdown__date {
+        font-size: 4vw;
+        margin-bottom: 12vw;
+    }
+
+    .countdown__timer {
+        width: 90vw;
+        margin-bottom: 12vw;
+    }
+
+    .countdown__item span {
+        font-size: 12vw;
+        margin-bottom: 2vw;
+    }
+
+    .countdown__item p {
+        font-size: 2.5vw;
+    }
+
+    .countdown__separator {
+        width: 0.3vw;
+        height: 16vw;
+    }
+
+    .btn--calendar {
+        font-size: 3.5vw;
+        padding: 3vw 5vw;
+    }
+
+    /* Quote */
+    .quote {
+        min-height: 100vh;
+    }
+
+    .quote__text-top,
+    .quote__text-bottom {
+        font-size: 12vw;
+    }
+
+    .quote__images {
+        gap: 3vw;
+    }
+
+    .quote__img {
+        width: 25vw;
+        height: 32vw;
+        border: 1vw solid var(--text);
+    }
+
+    .quote__flower {
+        height: 90vw;
+        right: -15vw;
+        opacity: 0.5;
+    }
+
+    .quote__pin {
+        height: 12vw;
+        right: 15vw;
+        top: 25%;
+    }
+
+    .quote__text-top {
+        margin-left: 0;
+        margin-bottom: -3vw;
+    }
+
+    .quote__text-bottom {
+        margin-right: 0;
+        margin-top: -3vw;
+    }
+
+    .itinerary__img--religiosa,
+    .itinerary__img--cena,
+    .itinerary__img--civil,
+    .itinerary__img--recepcion {
+        width: 28.31vw;
+        height: 20vw;
+    }
+
+    .itinerary__subtitle,
+    .itinerary__dresscode p {
+        font-size: 2.5vw;
+        line-height: 1.4;
+    }
+
+    .itinerary__event-title {
+        font-size: 4vw;
+        line-height: 1.4;
+    }
+
+    .itinerary__thanks {
+        font-size: 6vw;
+        line-height: 1.4;
+    }
+
+    .btn-maps {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 2.5vw;
+        padding: 1vw 2vw;
+        white-space: nowrap;
+        width: max-content;
+        height: auto;
+        margin-top: 4vw;
+    }
+
+    .faqs__grid {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* Centra el bloque entero en la pantalla */
+        width: 90%;
+    }
+
+    .faqs__column {
+        /* 1. Reducimos el padding a los lados subiendo el width al 95% */
+        width: 95%;
+        max-width: 500px;
+
+        display: flex;
+        flex-direction: column;
+
+        /* 2. MAGIA AQUÍ: Alineamos el contenido a la izquierda dentro de la columna centrada */
+        align-items: flex-start;
+        margin: 0 auto;
+    }
+
+    .faq {
+        width: 100%;
+        margin-bottom: 4vw;
+        text-align: left;
+        /* Aseguramos que el texto fluya hacia la izquierda */
+    }
+
+    /* --- 3. AUMENTO DE TIPOGRAFÍA --- */
+    .faq__title {
+        /* 🔴 Ajusta estos valores vw si las quieres aún más grandes */
+        font-size: 4.5vw;
+        line-height: 1.3;
+    }
+
+    .faq__content {
+        font-size: 2.8vw;
+        line-height: 1.5;
+        margin-top: 2vw;
+    }
+
+    /* --- Footer de las FAQs (Sello y "Te esperamos") --- */
+    .faqs__footer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* Esto sí lo mantenemos centrado */
+        width: 100%;
+        margin-top: 8vw;
+        margin-bottom: 5vw;
+    }
+
+    .faqs__thanks {
+        font-size: 8vw;
+    }
+
+    .gallery {
+        width: 100%;
+        height: auto;
+        display: block;
+        /* Quitamos el flex centrado del escritorio */
+    }
+
+    /* 2. El wrapper del fondo se adapta al 100% del nuevo height automático */
+    .gallery__bg-wrapper {
+        width: 100%;
+        height: 100%;
+    }
+
+    /* 3. EL RESETEO VITAL: Matamos la rotación y restauramos proporciones */
+    .gallery__bg-img {
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        transform: none;
+        /* Esto elimina el rotate(90deg) y el translate */
+        object-position: center;
+    }
+
+    /* 4. Apilamos el contenido y le damos el padding vertical */
+    .gallery__content {
+        width: 100%;
+        height: auto;
+        flex-direction: column;
+        justify-content: center;
+        padding: 4rem 0;
+        /* El espacio beige ahora es parte interna del contenedor */
+        gap: 2.5rem;
+    }
+
+    /* 5. Ajuste de las fotos, cambiando los 'vh/vw' fijos por porcentajes fluidos */
+    .gallery__photo {
+        width: 85%;
+        max-width: 250px;
+        height: auto;
+        aspect-ratio: 3 / 4;
+        /* Opcional: Mantiene una proporción elegante tipo retrato */
+    }
+
+    .gift__container {
+        flex-direction: column;
+        align-items: center;
+        /* Centramos todo */
+        padding-left: 0;
+        padding-top: 4rem;
+        width: 90%;
+        /* Damos un poco de respiro lateral */
+        margin: 0 auto;
+    }
+
+    /* 2. Ajustamos la imagen para que sea fluida */
+    .gift__img {
+        width: 100%;
+        /* Ocupa todo el ancho disponible */
+        max-width: 350px;
+        /* Evita que sea gigante */
+        height: auto;
+        /* Mantiene proporción */
+        margin-top: 0;
+        margin-bottom: 3rem;
+        /* Espacio entre foto y texto */
+    }
+
+    /* 3. Ajustamos el contenedor de texto */
+    .gift__content {
+        width: 100%;
+        margin-left: 0;
+        text-align: left;
+        /* Centramos el texto en móvil */
+    }
+
+    /* 4. Reseteo de títulos para que no sean absolutos */
+    .gift__header {
+        position: relative;
+        margin-bottom: 2rem;
+    }
+
+    .gift__title-top,
+    .gift__title-bottom {
+        position: relative;
+        left: 0;
+        top: 0;
+        font-size: 8vw;
+        /* Ajuste para que se vea bien en celular */
+        text-align: center;
+        white-space: normal;
+    }
+
+    /* 5. Ajustes de legibilidad para móvil */
+    .gift__text,
+    .gift__bank,
+    .gift__thanks {
+        font-size: 2.5vw;
+        text-align: left;
+    }
+
+    .gift__account {
+        justify-content: left;
+        /* Centramos el número de cuenta */
+    }
+
+    .gift__copy-icon {
+        width: 2.5vw;
+        height: 2.5vw;
+    }
+
+    /* --- PLAYLIST Y MENSAJES (Columna Derecha) --- */
+    .media-section {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .media-section__half {
+        width: 100%;
+        height: auto;
+        min-height: auto;
+    }
+
+    /* --- MITAD IZQUIERDA: PLAYLIST --- */
+    .media-section__half--left {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 5rem 0;
+        gap: 0;
+    }
+
+    /* --- MITAD DERECHA: MENSAJE --- */
+    .media-section__half--right {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding-top: 4rem;
+        /* Aumentamos el padding inferior para darle espacio a los círculos */
+        padding-bottom: 3rem;
+    }
+
+    /* --- RESETEO DE POSICIONES ABSOLUTAS --- */
+    .media-section__title-nuestra,
+    .media-section__title-playlist,
+    .media-section__subtitle-left,
+    .media-section__spotify-link,
+    .media-section__footer-text,
+    .media-section__title-dejanos,
+    .media-section__title-mensaje,
+    .media-section__subtitle-right {
+        position: relative;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: 0;
+        text-align: center;
+        width: 100%;
+    }
+
+    /* --- TAMAÑOS Y DISTANCIAS: TITULOS --- */
+    /* Títulos base (Nuestra / Déjanos un) un poco más chicos */
+    .media-section__title-nuestra,
+    .media-section__title-dejanos {
+        font-size: 9.5vw;
+    }
+
+    /* Títulos script (Playlist / Mensaje) más chicos y MÁS CERCA del superior */
+    .media-section__title-playlist,
+    .media-section__title-mensaje {
+        font-size: 12.5vw;
+        margin-top: -3rem;
+        /* Margen negativo mayor para pegar las palabras */
+    }
+
+    /* --- TAMAÑOS: TEXTOS GENERALES --- */
+    /* Subtítulos y textos pequeños un poquitito más chicos */
+    .media-section__subtitle-left,
+    .media-section__subtitle-right,
+    .media-section__footer-text {
+        font-size: 2.2vw;
+        white-space: normal;
+        padding: 0 5%;
+    }
+
+    .media-section__subtitle-left {
+        margin-top: 1rem;
+        margin-bottom: 3rem;
+    }
+
+    .media-section__subtitle-right {
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .media-section__footer-text {
+        margin-top: 2rem;
+    }
+
+    /* --- IMAGEN SPOTIFY --- */
+    .media-section__spotify-img {
+        width: 90vw;
+        max-width: none;
+        height: auto;
+    }
+
+    /* --- POSTAL MÁS CHICA --- */
+    .media-section__postcard {
+        width: 65vw;
+        height: 53vw;
+        position: relative;
+        left: 0;
+        top: 0;
+        margin-bottom: 3rem;
+    }
+
+    /* Textos internos de la postal más chicos */
+    .media-section__postcard-label,
+    .media-section__postcard-btn {
+        font-size: 3vw;
+    }
+
+    /* --- CARRUSEL Y CÍRCULOS (MANTELES) --- */
+    .media-section__carousel-wrapper {
+        width: 100vw;
+        position: relative;
+        left: 0;
+        bottom: 0;
+        margin-top: auto;
+        margin-bottom: 0;
+    }
+
+    /* Ajuste específico para hacer los círculos MÁS GRANDES en móvil */
+    .media-section__mat {
+        width: 35vw;
+        /* Crece bastante respecto al escritorio */
+        height: 35vw;
+        padding: 8vw;
+        /* Padding interno para que el texto no toque el borde del mantel */
+    }
+
+    /* Textos internos del círculo adaptados al nuevo tamaño */
+    .media-section__mat-text {
+        font-size: 1.8vw;
+    }
+
+    .media-section__mat-author {
+        font-size: 1.5vw;
+    }
+
+    .message-modal {
+        /* Aumentamos el ancho relativo para que ocupe más espacio */
+        width: 70vw !important;
+        max-width: 700px !important;
+    }
+
+    .message-modal__container {
+        padding: 6vw !important;
+        /* Más aire interno */
+    }
+
+    .message-modal__title {
+        font-size: 4vw !important;
+        /* Fuente un poco más grande que en escritorio */
+    }
+
+    .message-modal__subtitle {
+        font-size: 5.5vw !important;
+    }
+
+    .message-modal__input,
+    .message-modal__textarea {
+        font-size: 2vw !important;
+        /* Textos de input más legibles */
+        padding: 1.5vw 0.5vw !important;
+    }
+
+    .message-modal__submit {
+        font-size: 2vw !important;
+        padding: 1.5vw 3vw !important;
+    }
+
+    .message-modal__close {
+        width: 3vw !important;
+        height: 3vw !important;
+    }
+
+    .closing-section__container {
+        gap: 4vh;
+        /* Cerramos un poco el "acordeón" */
+    }
+
+    .closing-section__title {
+        font-size: 7.5vw;
+    }
+
+    .closing-section__envelope {
+        width: 55vw;
+        /* El sobre crece un poco para celular */
+    }
+
+    .closing-section__bg-text {
+        font-size: 13vw;
+    }
+
+    .closing-section__message-wrapper {
+        width: 90%;
+    }
+
+    .closing-section__message {
+        font-size: 4.5vw;
+    }
+
+    .closing-section__flower {
+        width: 45vw;
+        bottom: 2vh;
+    }
+
+    .closing-section__footer {
+        font-size: 3vw;
+    }
+}
+
+/* =========================================
+   3. AJUSTES FINALES PARA MÓVIL ESTÁNDAR (<= 500px)
+   ========================================= */
+@media (max-width: 500px) {
+    .closing-section__container {
+        gap: 3vh;
+        /* Compresión vertical máxima, pero sin tocarse */
+    }
+
+    .closing-section__title {
+        font-size: 5vw;
+    }
+
+    .closing-section__envelope {
+        width: 50vw;
+        /* El sobre es el protagonista visual */
+    }
+
+    .closing-section__bg-text {
+        font-size: 12vw;
+        /* Las letras de fondo abrazan el sobre */
+    }
+
+    .closing-section__message {
+        font-size: 4vw;
+        line-height: 1.5;
+    }
+
+    .closing-section__footer {
+        font-size: 2.5vw;
+        margin-top: 4vh;
+    }
+
+    .closing-section__flower {
+        width: 30vw;
+        opacity: 0.8;
+        /* Suavizamos la flor un poco para que no robe atención */
+    }
+}
