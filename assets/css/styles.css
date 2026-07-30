@@ -1381,7 +1381,7 @@ details[open] .faq__icon {
     /* El resto se queda exactamente igual */
     width: 25vw;
     height: 18vw;
-    background-image: url('/assets/img/BYVImg/Recurso13.svg');
+    background-image: url('../img/BYVImg/Recurso13.svg');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -1477,7 +1477,7 @@ details[open] .faq__icon {
 .media-section__mat {
     width: 22vw;
     height: 22vw;
-    background-image: url('/assets/img/BYVImg/Recurso15.svg');
+    background-image: url('../img/BYVImg/Recurso15.svg');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
