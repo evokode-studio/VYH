@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // ==========================================
     // COPY NUMBER (Regalos)
     // ==========================================
-    const copyBtn = document.querySelector('.gift__copy-icon'); // Usamos el ícono en lugar de un ID que no existía
+    const copyBtn = document.querySelector('.gift__copy-icon');
     if(copyBtn) {
         copyBtn.addEventListener('click', () => {
             const accountSpan = document.getElementById("accountNumber");
@@ -111,24 +111,28 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // ==========================================
-    // MODAL & MENSAJES (Local Storage)
+    // POP-UP MODAL (MENSAJES)
     // ==========================================
-    const postcardBtn = document.querySelector('.media-section__postcard');
-    const modal = document.getElementById('messageModal'); 
+    const openBtn = document.getElementById('openMessageModal');
     const closeBtn = document.getElementById('closeMessageModal');
-    const msgForm = document.getElementById('messageForm'); 
-    const carouselTrack = document.getElementById('messagesCarousel'); 
-    const STORAGE_KEY = 'verohumboMsgs_v1';
+    const modal = document.getElementById('messageModal');
 
-    if (postcardBtn && modal && closeBtn) {
-        postcardBtn.addEventListener('click', () => {
-            modal.showModal();
+    // Abrir el modal
+    if (openBtn && modal) {
+        openBtn.addEventListener('click', () => {
+            modal.showModal(); 
         });
+    }
 
+    // Cerrar el modal desde la X
+    if (closeBtn && modal) {
         closeBtn.addEventListener('click', () => {
             modal.close();
         });
+    }
 
+    // Cerrar el modal al hacer clic afuera del recuadro blanco
+    if (modal) {
         modal.addEventListener('click', (e) => {
             const dialogDimensions = modal.getBoundingClientRect();
             if (
@@ -142,55 +146,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    function renderMessages() {
-        if (!carouselTrack) return;
-        const msgs = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-        let contentHTML = '';
-        
-        if (msgs.length === 0) {
-            contentHTML = `
-                <div class="media-section__mat">
-                    <p class="media-section__mat-text">"Les deseo lo más bonito en esta nueva etapa..."</p>
-                    <span class="media-section__mat-author">- Luisa Campos</span>
-                </div>
-                <div class="media-section__mat">
-                    <p class="media-section__mat-text">"Estamos listísimos para el gran día. ¡Felicidades!"</p>
-                    <span class="media-section__mat-author">- Fam. Gutiérrez</span>
-                </div>
-            `;
-        } else {
-            contentHTML = msgs.map(msg => `
-                <div class="media-section__mat">
-                    <p class="media-section__mat-text">"${msg.mensaje}"</p>
-                    <span class="media-section__mat-author">- ${msg.nombre}</span>
-                </div>
-            `).join('');
-        }
-        carouselTrack.innerHTML = contentHTML + contentHTML;
-    }
-
-    if (msgForm) {
-        msgForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const nombreInput = msgForm.querySelector('input[type="text"]');
-            const mensajeInput = msgForm.querySelector('textarea');
-            
-            const nombre = nombreInput.value.trim();
-            const mensaje = mensajeInput.value.trim();
-            
-            if (nombre && mensaje) {
-                const msgs = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-                msgs.push({ nombre, mensaje, fecha: new Date().toLocaleDateString('es-MX') });
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(msgs));
-                
-                msgForm.reset();
-                modal.close(); 
-                renderMessages(); 
-            }
-        });
-    }
-
-    renderMessages();
 });
 
 // ==========================================

@@ -21,6 +21,7 @@
     <!-- 2. SCRIPT DIFERIDO -->
     <!-- Se removió type="module" si no usas imports/exports reales, y se agregó 'defer' -->
     <script src="./assets/js/scripts.js" defer></script>
+    <script type="module" src="firebase-messages.js"></script>
 </head>
 
 <body>
@@ -396,7 +397,8 @@
             <h2 class="media-section__title-nuestra">Nuestra</h2>
             <h2 class="media-section__title-playlist">Playlist.</h2>
             <p class="media-section__subtitle-left">La música que nos acompaña</p>
-            <a href="https://open.spotify.com/playlist/7m75MFRKlFzOEjOPMFgTc2?si=W9W4Z3AUREyw8mZdYR17Cw&pi=t-QY_svhRi2Su" target="_blank" class="media-section__spotify-link">
+            <a href="https://open.spotify.com/playlist/7m75MFRKlFzOEjOPMFgTc2?si=W9W4Z3AUREyw8mZdYR17Cw&pi=t-QY_svhRi2Su"
+                target="_blank" class="media-section__spotify-link">
                 <img src="./assets/img/BYVImg/spoti-02.png" alt="Playlist Vero y Humberto"
                     class="media-section__spotify-img" loading="lazy">
             </a>
@@ -411,6 +413,8 @@
             <p class="media-section__subtitle-right">Tus palabras significan más de lo que crees.</p>
 
             <div class="media-section__postcard" id="openMessageModal">
+                <!-- Eliminamos la etiqueta <img>. El SVG ya está como fondo en el CSS -->
+
                 <div class="media-section__postcard-content">
                     <span class="media-section__postcard-label">Escribe tu mensaje aquí:</span>
                     <div class="media-section__postcard-lines">
@@ -422,7 +426,6 @@
                     <span class="media-section__postcard-btn">Enviar mensaje</span>
                 </div>
             </div>
-
             <div class="media-section__carousel-wrapper">
                 <div class="media-section__carousel-track" id="messagesCarousel">
                     <!-- Contenido inyectado por JS -->
