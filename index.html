@@ -14,10 +14,8 @@
     <!-- Carga de fuentes en paralelo y optimizada -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Quattrocento:ital,wght@0,400;0,700;1,400&family=Roboto+Mono:wght@400;700&display=swap"
-        rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Quattrocento:ital,wght@0,400;0,700;1,400&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="image" href="assets/img/BYVImg/1-PORTADA.png">
     <!-- 2. SCRIPT DIFERIDO -->
     <!-- Se removió type="module" si no usas imports/exports reales, y se agregó 'defer' -->
     <script src="./assets/js/scripts.js" defer></script>
@@ -25,6 +23,10 @@
 </head>
 
 <body>
+    <div id="preloader" class="preloader">
+        <div class="preloader__spinner"></div>
+        <p class="preloader__text">Preparando una experiencia inolvidable...</p>
+    </div>
     <!-- 01. NAVBAR -->
     <nav class="navbar" id="navbar">
         <div class="navbar__container">
@@ -70,20 +72,16 @@
         <div class="quote__container">
 
             <!-- 3. CARGA PEREZOSA (loading="lazy") a partir de aquí -->
-            <img src="assets/img/BYVImg/Boda Vero & Bryan-2-03.png" alt="Flor decorativa" class="quote__flower"
-                loading="lazy">
-            <img src="assets/img/BYVImg/Boda Vero & Bryan-2-02.png" alt="Pin de cera" class="quote__pin" loading="lazy">
+            <img src="assets/img/BYVImg/Boda Vero & Bryan-2-03.png" alt="Flor decorativa" class="quote__flower">
+            <img src="assets/img/BYVImg/Boda Vero & Bryan-2-02.png" alt="Pin de cera" class="quote__pin">
 
             <div class="quote__center-stack">
                 <h2 class="quote__text-top">Ocho años juntos.</h2>
 
                 <div class="quote__images">
-                    <img src="assets/img/BYVImg/Bryan&Vero-18byn.png" alt="Vero y Humberto 1" class="quote__img"
-                        loading="lazy">
-                    <img src="assets/img/BYVImg/Bryan&Vero-54byn.png" alt="Vero y Humberto 2" class="quote__img"
-                        loading="lazy">
-                    <img src="assets/img/BYVImg/Bryan&Vero-61.png" alt="Vero y Humberto 3" class="quote__img"
-                        loading="lazy">
+                    <img src="assets/img/BYVImg/Bryan&Vero-18byn.png" alt="Vero y Humberto 1" class="quote__img">
+                    <img src="assets/img/BYVImg/Bryan&Vero-54byn.png" alt="Vero y Humberto 2" class="quote__img">
+                    <img src="assets/img/BYVImg/Bryan&Vero-61.png" alt="Vero y Humberto 3" class="quote__img">
                 </div>
 
                 <h2 class="quote__text-bottom">Una vida por delante.</h2>
@@ -226,7 +224,7 @@
                 </div>
                 <div class="itinerary__event-info">
                     <h3 class="itinerary__event-title">Recepción</h3>
-                    <p>7:30 pm</p>
+                    <p>7:00 pm</p>
                     <p class="itinerary__event-place">NH Quinta</p>
                     <p>Lerdo, Dgo.</p>
                     <a href="https://maps.app.goo.gl/MQYRsBhZ9PK1c2SJ8" target="_blank" rel="noopener noreferrer"
@@ -245,7 +243,7 @@
                 </div>
                 <div class="itinerary__event-info">
                     <h3 class="itinerary__event-title">Cena</h3>
-                    <p>8:00 pm</p>
+                    <p>7:30 pm</p>
                     <p class="itinerary__event-place">NH Quinta</p>
                     <p>Lerdo, Dgo.</p>
                     <a href="https://maps.app.goo.gl/MQYRsBhZ9PK1c2SJ8" target="_blank" rel="noopener noreferrer"

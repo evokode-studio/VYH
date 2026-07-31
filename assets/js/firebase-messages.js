@@ -73,7 +73,11 @@ onSnapshot(q, (snapshot) => {
         });
     }
     
-    carouselTrack.innerHTML = contentHTML + contentHTML;
+carouselTrack.innerHTML = contentHTML + contentHTML;
+    
+    carouselTrack.style.animation = 'none'; // Apaga la animación
+    carouselTrack.offsetHeight; // Fuerza al navegador a recalcular el tamaño
+    carouselTrack.style.animation = 'scrollCarousel 20s linear infinite'; // La vuelve a encender
 });
 
 if (msgForm) {

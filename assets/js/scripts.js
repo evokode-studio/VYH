@@ -184,3 +184,12 @@ function updateCountdown() {
 }
 setInterval(updateCountdown, 1000);
 updateCountdown();
+// ==========================================
+// PANTALLA DE CARGA (PRELOADER)
+// ==========================================
+window.addEventListener('load', function() {
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+        preloader.classList.add('preloader--hidden');
+    }
+});
