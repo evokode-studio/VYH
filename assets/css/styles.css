@@ -1,4 +1,6 @@
-/* 09. CSS VARIABLES */
+/* ==========================================
+   09. CSS VARIABLES & RESET
+   ========================================== */
 :root {
     --cream: #EBE6E3;
     --sand: #DBD3D0;
@@ -11,11 +13,10 @@
     --font-serif: 'Quattrocento', serif;
     --font-mono: 'Roboto Mono', monospace;
 
-    --section-pad-y: 100px;
-    --section-pad-x: clamp(24px, 8vw, 120px);
+    --section-pad-y: 10vh;
+    --section-pad-x: 5vw;
 }
 
-/* RESET & BASICS */
 * {
     margin: 0;
     padding: 0;
@@ -30,7 +31,7 @@ body {
     background-color: var(--cream);
     color: var(--text);
     font-family: var(--font-serif);
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.6;
     overflow-x: hidden;
 }
@@ -64,6 +65,7 @@ body {
     cursor: pointer;
     text-align: center;
     text-decoration: none;
+    transition: all 0.3s ease;
 }
 
 .btn--primary {
@@ -71,15 +73,14 @@ body {
     color: var(--cream);
     font-family: var(--font-serif);
     font-style: italic;
-    font-size: 13px;
-    padding: 10px 22px;
+    font-size: 14px;
+    padding: 12px 24px;
     border: none;
-    transition: background 0.2s ease, transform 0.2s ease;
 }
 
 .btn--primary:hover {
     background: #5C2A0C;
-    transform: translateY(-1px);
+    transform: translateY(-2px);
 }
 
 .btn--secondary {
@@ -87,15 +88,15 @@ body {
     color: var(--accent);
     border: 1.5px solid var(--accent);
     font-family: var(--font-serif);
-    font-size: 13px;
-    padding: 9px 20px;
-    transition: all 0.2s ease;
+    font-size: 14px;
+    padding: 10px 22px;
 }
 
 .btn--secondary:hover {
     background: var(--accent);
     color: var(--cream);
 }
+
 /* ==========================================
    PANTALLA DE CARGA (PRELOADER)
    ========================================== */
@@ -104,15 +105,16 @@ body {
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
-    background-color: var(--cream, #E6E1DC); /* Tu color de fondo */
-    z-index: 99999; /* Por encima de TODO */
+    height: 100dvh; /* 🔴 Usamos dvh para móviles */
+    background-color: var(--cream);
+    z-index: 99999;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     transition: opacity 0.8s ease, visibility 0.8s ease;
 }
+
 .preloader--hidden {
     opacity: 0;
     visibility: hidden;
@@ -121,16 +123,16 @@ body {
 .preloader__spinner {
     width: 40px;
     height: 40px;
-    border: 3px solid rgba(140, 89, 59, 0.3); /* Color brown transparente */
-    border-top: 3px solid var(--accent, #b48464); /* Color de giro */
+    border: 3px solid rgba(115, 53, 16, 0.2);
+    border-top: 3px solid var(--accent);
     border-radius: 50%;
     animation: spin 1s linear infinite;
     margin-bottom: 20px;
 }
 
 .preloader__text {
-    font-family: var(--font-mono, monospace);
-    color: var(--dark-brown, #4a3b32);
+    font-family: var(--font-mono);
+    color: var(--text);
     letter-spacing: 0.1em;
     font-size: 0.9rem;
     text-transform: uppercase;
@@ -140,25 +142,26 @@ body {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
-/* NAVBAR */
+
+/* ==========================================
+   NAVBAR
+   ========================================== */
 .navbar {
     position: fixed;
     top: 0;
     width: 100%;
-    height: 38.4px;
+    height: auto;
     z-index: 1000;
-    transition: transform 0.3s ease, background 0.3s ease;
-    padding: 12px 50px 8px 50px;
-    box-sizing: border-box;
-    /* Optimización de hardware para el scroll */
+    transition: transform 0.3s ease, background 0.3s ease, padding 0.3s ease;
+    padding: 15px 5vw;
     will-change: transform;
-    backface-visibility: hidden;
 }
 
 .navbar--scrolled {
     background: rgba(235, 230, 227, 0.96);
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(8px);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 10px 5vw; /* Se hace más delgada al bajar */
 }
 
 .navbar--hidden {
@@ -169,38 +172,35 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
+    max-width: 1200px; /* 🔴 Tope de 1200px */
     margin: 0 auto;
-    height: 100%;
+    width: 100%;
+}
+
+.navbar__logo {
+    font-family: var(--font-script);
+    font-size: clamp(24px, 3vw, 32px);
+    color: var(--accent);
+    text-decoration: none;
+    line-height: 1;
 }
 
 .navbar__menu {
     list-style: none;
     display: flex;
-    gap: 20px;
-}
-
-.navbar__logo {
-    font-family: var(--font-script);
-    font-size: 24px;
-    color: var(--accent);
-    text-decoration: none;
-    line-height: normal;
-    display: flex;
+    gap: 25px;
     align-items: center;
-    margin-top: -4px;
 }
 
 .navbar__link {
     font-family: var(--font-mono);
     font-size: 12px;
-    line-height: 1;
     color: var(--accent);
     text-decoration: none;
     text-transform: uppercase;
     position: relative;
-    padding-bottom: 2px;
-    transition: color 0.4s ease;
+    padding-bottom: 4px;
+    transition: color 0.3s ease;
 }
 
 .navbar__link::after {
@@ -213,11 +213,7 @@ body {
     background-color: var(--text);
     transform: scaleX(0);
     transform-origin: right;
-    transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
-}
-
-.navbar__link:hover {
-    color: var(--text);
+    transition: transform 0.3s ease;
 }
 
 .navbar__link:hover::after {
@@ -225,9 +221,8 @@ body {
     transform-origin: left;
 }
 
-/* ESTILOS MOBILE */
 .navbar__toggle {
-    display: flex;
+    display: none; /* 🔴 Escondido en Desktop por defecto */
     flex-direction: column;
     justify-content: space-between;
     width: 30px;
@@ -235,38 +230,28 @@ body {
     background: transparent;
     border: none;
     cursor: pointer;
-    z-index: 100; /* Lo mantiene encima del menú desplegable */
+    z-index: 100;
 }
 
 .navbar__toggle span {
     display: block;
     width: 100%;
     height: 2px;
-    background-color: var(--dark-brown, #5c3a21); /* Revisa el color de tu variable */
+    background-color: var(--text);
     border-radius: 2px;
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-/* Cuando el botón recibe la clase .active desde JS */
-.navbar__toggle.active span:nth-child(1) {
-    transform: translateY(9px) rotate(45deg);
-}
-.navbar__toggle.active span:nth-child(2) {
-    opacity: 0; /* Oculta la línea del medio */
-}
-.navbar__toggle.active span:nth-child(3) {
-    transform: translateY(-9px) rotate(-45deg);
-}
-
-/* HERO */
+/* ==========================================
+   HERO
+   ========================================== */
 .hero {
     position: relative;
-    height: 100vh;
+    height: 100dvh; /* 🔴 Dynamic viewport height, perfecto en móviles */
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--white);
-    background: var(--text);
     overflow: hidden;
 }
 
@@ -283,10 +268,7 @@ body {
 
 .hero__overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0; /* Sustituye top, left, width y height al 100% */
     background: rgba(0, 0, 0, 0.35);
     z-index: 2;
 }
@@ -296,98 +278,68 @@ body {
     z-index: 3;
     width: 100%;
     height: 100%;
-    max-width: 1024px;
+    max-width: 1200px; /* 🔴 Contenedor de seguridad */
     margin: 0 auto;
-}
-
-.hero__center {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .hero__title {
     font-family: var(--font-script);
-    font-size: clamp(60px, 8vw, 100px);
+    font-size: clamp(60px, 10vw, 120px); /* 🔴 Crece fluido hasta los 120px */
     font-weight: 400;
     color: var(--white);
     line-height: 1;
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
     text-align: center;
 }
 
 .hero__floating-text {
     font-family: var(--font-serif);
-    font-size: 24px;
-    font-weight: 400;
+    font-size: clamp(16px, 2.5vw, 24px);
     color: var(--white);
-    line-height: 1;
-    margin: 0;
-    position: absolute;
-    bottom: 25%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
+    margin-top: 20px;
     text-align: center;
 }
 
 .hero__bottom {
     position: absolute;
     bottom: 40px;
-    left: 0;
     width: 100%;
+    max-width: 1200px;
     display: flex;
     justify-content: space-between;
-    padding: 0 50px;
-    box-sizing: border-box;
+    padding: 0 5vw;
 }
 
 .hero__date,
 .hero__location {
     font-family: var(--font-mono);
-    font-size: 16px;
-    font-weight: 400;
+    font-size: clamp(12px, 1.5vw, 16px);
     color: var(--white);
-    line-height: 1;
 }
-
-
-/* QUOTE */
+/* ==========================================
+   QUOTE (Ocho años juntos)
+   ========================================== */
 .quote {
     background: var(--sage);
-
-    /* 1. Control de Altura: 
-       Mínimo 550px para proteger en pantallas chaparras.
-       Ideal 100vh para ocupar toda la pantalla de forma estética.
-       Máximo 900px para evitar el exceso de espacio en pantallas muy altas. */
-    min-height: clamp(550px, 100vh, 900px);
-    height: auto;
-
-    /* 2. Padding de Seguridad:
-       Mínimo 60px de respiro (arriba y abajo), ideal 8vh, y tope máximo de 100px. */
-    padding: clamp(60px, 8vh, 100px) 0;
-
+    padding: var(--section-pad-y) var(--section-pad-x);
     position: relative;
-    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
 }
 
 .quote__container {
     position: relative;
     width: 100%;
-    max-width: 100%;
+    max-width: 1200px;
     display: flex;
     justify-content: center;
     align-items: center;
+    /* Al usar justify-content: center aquí, garantizamos que el stack de fotos y texto quede perfectamente centrado */
 }
 
 .quote__center-stack {
@@ -398,236 +350,248 @@ body {
     z-index: 2;
 }
 
-.quote__text-top {
+/* --- TEXTOS --- */
+.quote__text-top,
+.quote__text-bottom {
     font-family: var(--font-script);
-    font-size: 5.85vw;
+    font-size: clamp(45px, 6vw, 75px);
     color: var(--accent);
     line-height: 1;
-    font-weight: 400;
-    transform: rotate(-3.24deg);
-    margin-bottom: -1.46vw;
-    margin-left: -5vw;
+    transform: rotate(-3deg);
     position: relative;
     z-index: 3;
+    
+    /* 1. Hacemos la letra más delgada */
+    font-weight: 300; 
+    -webkit-font-smoothing: antialiased; /* Suaviza los bordes para que luzca más fina y elegante en pantallas */
+    
+    /* 2. Eliminamos los márgenes laterales para que no empujen el centro */
+    margin: 0; 
+}
+
+.quote__text-top {
+    margin-bottom: -15px; /* Solo acercamos al marco superior */
 }
 
 .quote__text-bottom {
-    font-family: var(--font-script);
-    font-size: 5.85vw;
-    color: var(--accent);
-    line-height: 1;
-    font-weight: 400;
-    transform: rotate(-3.24deg);
-    margin-top: -1.46vw;
-    margin-right: -4vw;
-    position: relative;
-    z-index: 3;
+    margin-top: -15px; /* Solo acercamos al marco inferior */
 }
 
+/* --- IMÁGENES --- */
 .quote__images {
     display: flex;
     flex-direction: column;
-    gap: 1.5vw;
-    align-items: center;
+    gap: 20px;
     position: relative;
     z-index: 1;
 }
 
 .quote__img {
-    width: 9.7vw;
-    height: 12.66vw;
+    width: clamp(120px, 16vw, 200px);
+    height: auto;
+    aspect-ratio: 3/4;
     object-fit: cover;
-    border: 0.3vw solid var(--text);
+    border: 4px solid var(--text);
 }
 
+/* --- FLOR --- */
 .quote__flower {
     position: absolute;
-    height: 56.64vw;
-    width: auto;
+    width: clamp(200px, 35vw, 450px);
+    height: auto;
+    right: -5%;
     top: 50%;
-    right: -2vw;
     transform: translateY(-50%) rotate(-10deg);
     z-index: 0;
     pointer-events: none;
+    opacity: 0.7;
 }
 
+/* --- SELLO DE CERA --- */
 .quote__pin {
     position: absolute;
-    height: 6.73vw;
-    width: auto;
-    top: 35%;
-    right: 22vw;
-    transform: rotate(-11.94deg);
-    z-index: 2;
+    width: clamp(50px, 6.5vw, 90px);
+    height: auto;
+    right: 20%;
+    top: 45%;
+    transform: rotate(-20deg);
+    z-index: 4;
     pointer-events: none;
+    filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.15));
 }
-
-
-/* COUNTDOWN */
+/* ==========================================
+   COUNTDOWN
+   ========================================== */
 .countdown {
-    background: var(--cream);
-    min-height: 107vh;
-    padding: 8vw 0 4vw 0;
-    text-align: center;
     position: relative;
+    width: 100%;
+    /* Min-height asegura que la sección no se aplaste */
+    min-height: 100vh; 
     display: flex;
     justify-content: center;
+    align-items: center;
+    padding: var(--section-pad-y) var(--section-pad-x);
     overflow: hidden;
+    background-color: var(--cream);
 }
-
+/* 1. EL FONDO (WATERMARK) */
 .countdown__watermark {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-size: cover;
+    background-size: cover; /* Cambia a 'contain' si prefieres que la imagen no se recorte */
     background-position: center;
-    opacity: 1;
-    z-index: 1;
+    background-repeat: no-repeat;
+    z-index: 0;
 }
 
 .countdown__content {
     position: relative;
-    z-index: 2;
-    width: 100%;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    width: 100%;
+    max-width: 1200px;
 }
 
+/* 2. "EL GRAN DÍA" - Letra un poco más grande */
 .countdown__label {
     font-family: var(--font-script);
-    font-size: 3.51vw;
-    color: var(--text);
+    font-size: clamp(45px, 6vw, 80px);
+    color: var(--dark-brown);
     line-height: 1;
-    margin-top: 0;
-    margin-bottom: 0.5vw;
+    margin-bottom: 0px; 
 }
 
+/* 3. "FALTA POCO" - Letra más delgada */
 .countdown__title {
     font-family: var(--font-serif);
-    font-weight: 400;
-    font-size: 7.03vw;
+    font-size: clamp(50px, 8vw, 100px);
+    font-weight: 300; /* Esto hace la fuente delgada */
     color: var(--accent);
-    line-height: 1;
-    margin: 0 0 4vw 0;
+    line-height: 1.1;
+    letter-spacing: 0.05em;
+    margin-bottom: 25px;
+    -webkit-font-smoothing: antialiased; /* Suaviza bordes en pantallas */
 }
 
 .countdown__date {
     font-family: var(--font-serif);
+    font-size: clamp(18px, 2vw, 24px);
     font-weight: 700;
-    font-size: 1.95vw;
     color: var(--accent);
-    line-height: 1;
-    margin-bottom: 6vw;
+    margin-bottom: clamp(40px, 6vw, 80px);
 }
 
+/* --- CONTADOR --- */
 .countdown__timer {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+    display: flex;
+    justify-content: center;
     align-items: center;
-    width: 66.66vw;
-    margin: 0 auto 7vw auto;
+    gap: clamp(15px, 3vw, 40px);
+    margin-bottom: clamp(40px, 6vw, 80px);
 }
 
 .countdown__item {
-    text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    min-width: clamp(60px, 8vw, 100px);
 }
 
+/* 4. NÚMEROS MÁS GRANDES */
 .countdown__item span {
     font-family: var(--font-serif);
-    font-weight: 400;
-    font-size: 8.55vw;
+    font-size: clamp(60px, 10vw, 140px); /* Valores subidos para mayor impacto */
     color: var(--accent);
     line-height: 1;
-    margin-bottom: 1.5vw;
+    font-weight: 400;
 }
 
 .countdown__item p {
     font-family: var(--font-mono);
-    font-weight: 400;
-    font-size: 1.56vw;
+    font-size: clamp(14px, 1.8vw, 24px);
     color: var(--accent);
-    line-height: 1;
-    text-transform: uppercase;
+    margin-top: 15px;
+    letter-spacing: 0.1em;
 }
 
 .countdown__separator {
-    width: 0.15vw;
-    height: 11vw;
+    width: 2px;
+    height: clamp(100px, 7vw, 150px);
     background-color: var(--accent);
-    opacity: 0.8;
 }
 
+/* --- BOTÓN Y DROPDOWN (Solución al error visual) --- */
 .countdown__actions {
     position: relative;
-    display: inline-block;
-    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .btn--calendar {
-    background: var(--sage);
-    color: var(--accent);
     font-family: var(--font-mono);
-    font-weight: 300;
-    font-style: italic;
-    font-size: 1.17vw;
-    padding: 1vw 2vw;
+    font-size: clamp(14px, 1.2vw, 16px);
+    color: var(--accent);
+    background-color: var(--sage);
     border: none;
-    border-radius: 4px;
+    padding: 15px 30px;
     cursor: pointer;
-    transition: background 0.3s ease, color 0.3s ease;
+    transition:  0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 .btn--calendar:hover {
-    background: var(--accent);
-    color: var(--white);
+    color: var(--cream);
+    background-color: var(--accent);
 }
 
+/* 5. ELIMINAR LOS ENLACES CRUDOS (Esconder la clase hidden) */
+.hidden {
+    display: none !important;
+}
+
+/* Estilo del menú desplegable cuando JS le quite la clase .hidden */
 .calendar-dropdown {
     position: absolute;
     top: 100%;
     left: 50%;
     transform: translateX(-50%);
-    background: var(--white);
-    border: 1px solid var(--sand);
-    border-radius: 4px;
-    margin-top: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-top: 15px;
+    background-color: var(--cream);
+    border: 1px solid var(--dark-brown);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 220px;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
     z-index: 10;
-    width: 200px;
-    text-align: left;
-}
-
-.calendar-dropdown.hidden {
-    display: none;
 }
 
 .calendar-dropdown a {
-    display: block;
-    padding: 10px 15px;
-    color: var(--text);
-    text-decoration: none;
-    font-family: var(--font-serif);
+    font-family: var(--font-mono);
     font-size: 14px;
-    border-bottom: 1px solid var(--sand);
+    color: var(--dark-brown);
+    text-decoration: none;
+    transition: color 0.2s ease, text-decoration 0.2s ease;
 }
 
 .calendar-dropdown a:hover {
-    background: var(--cream);
+    color: var(--accent);
+    text-decoration: underline;
 }
-
-/* HISTORIA */
+/* ==========================================
+   HISTORIA
+   ========================================== */
 .story {
     background: var(--sand);
-    min-height: 155vh;
-    padding: 10vw 0;
+    padding: var(--section-pad-y) var(--section-pad-x);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -636,7 +600,8 @@ body {
 
 .story__container {
     width: 100%;
-    max-width: 1024px;
+    max-width: 1024px; /* Un poco más cerrado para mejor lectura */
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -647,70 +612,36 @@ body {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 4vw;
-    margin-bottom: 1.5vw;
-}
-
-.story__frame {
-    width: 38vw;
-    height: 44vw;
-    flex-shrink: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.story__bottom {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    width: 59vw;
-    margin: 0 auto;
-}
-
-.story__text {
+    gap: clamp(20px, 4vw, 50px);
+    margin-bottom: 30px;
     width: 100%;
-    font-family: var(--font-mono);
-    font-size: 1.25vw;
-    color: var(--text);
-    line-height: 1.6;
-    text-align: justify;
-}
-
-.story__text p {
-    margin-bottom: 1.5vw;
-}
-
-.story__signature {
-    font-family: var(--font-script);
-    font-weight: 400;
-    font-size: 3.9vw;
-    color: var(--accent);
-    line-height: 1;
-    width: auto;
-    align-self: flex-end;
-    margin-top: 2vw;
-    margin-right: 0;
 }
 
 .story__title-left,
 .story__title-right {
     font-family: var(--font-serif);
     font-weight: 700;
-    font-size: 3.51vw;
+    font-size: clamp(30px, 3.5vw, 45px);
     color: var(--accent);
     line-height: 1.1;
-    text-align: center;
+    flex: 1; /* Permite que los títulos tomen el espacio sobrante */
 }
 
 .story__title-left {
-    width: 12.9vw;
     text-align: right;
 }
 
 .story__title-right {
-    width: 12.69vw;
     text-align: left;
+}
+
+.story__frame {
+    width: clamp(250px, 35vw, 450px);
+    aspect-ratio: 38 / 44; /* Mantiene la proporción exacta sin usar altos fijos */
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .story__img-postal {
@@ -719,155 +650,144 @@ body {
     object-fit: contain;
 }
 
+.story__bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+}
 
-/* ITINERARY */
-/* --- TÍTULOS PRINCIPALES --- */
-.itinerary__title-top {
-    font-family: var(--font-quattrocento);
+.story__text {
+    width: 100%;
+    font-family: var(--font-mono);
+    font-size: clamp(14px, 1.25vw, 16px);
+    color: var(--text);
+    line-height: 1.6;
+    text-align: justify;
+}
+
+.story__text p {
+    margin-bottom: 20px;
+}
+
+.story__signature {
+    font-family: var(--font-script);
     font-weight: 400;
-    font-size: 9vw;
-    color: var(--dark-brown);
+    font-size: clamp(35px, 4vw, 55px);
+    color: var(--accent);
+    line-height: 1;
+    margin-top: 25px;
+}
+
+
+/* ==========================================
+   ITINERARIO
+   ========================================== */
+.itinerary {
+    background: var(--cream);
+    padding: var(--section-pad-y) var(--section-pad-x);
+    position: relative;
+    overflow: hidden;
+}
+
+.itinerary__container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.itinerary__header {
+    text-align: center;
+    margin-bottom: clamp(60px, 8vw, 100px);
+}
+
+.itinerary__title-top {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(60px, 9vw, 110px);
+    color: var(--text);
     line-height: 1;
 }
 
 .itinerary__title-bottom {
     font-family: var(--font-script);
     font-weight: 400;
-    font-size: 10vw;
+    font-size: clamp(70px, 10vw, 120px);
     color: var(--accent);
     line-height: 1;
-    margin-top: -4vw;
-    margin-left: 12vw;
+    margin-top: -30px;
+    margin-left: 10%;
 }
 
-/* --- CONTENEDOR PRINCIPAL --- */
+.itinerary__subtitle {
+    font-family: var(--font-mono);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(16px, 1.6vw, 22px);
+    color: var(--text);
+    margin-top: 20px;
+}
+
+/* TIMELINE GRID CORE */
 .itinerary__timeline {
-    width: 94vw;
-    margin: 0 auto;
+    width: 100%;
     position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    row-gap: 4vw;
-    column-gap: 27vw;
+    row-gap: clamp(50px, 8vw, 100px);
+    column-gap: clamp(40px, 10vw, 140px); /* Reemplaza el masivo 27vw */
 }
 
-/* --- CONECTORES --- */
-.itinerary__connector {
-    position: absolute;
-    top: 50%;
-    width: 13.5vw;
-    height: 0;
-    border-top: 2px dashed var(--dark-brown, #733510);
-    opacity: 0.6;
-}
-
-/* --- DRESSCODE --- */
-.itinerary__dresscode {
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    width: 100%;
-    font-family: var(--font-mono);
-    font-size: 1.2vw;
-    line-height: 1.4;
-    padding-left: 0.5vw;
-    margin-top: 6vw;
-    transform: none;
-}
-
-.itinerary__dresscode p {
-    padding-left: 1.2vw;
-    text-indent: -1.2vw;
-}
-
-/* --- ESTILOS DE TEXTO DE LOS EVENTOS --- */
-.itinerary__event-title {
-    font-family: var(--font-mono);
-    font-weight: 500;
-    font-size: 1.75vw;
-    color: var(--accent);
-    margin-top: 1vw;
-    margin-bottom: 0.5vw;
-}
-
-.itinerary__event-info p:nth-of-type(1) {
-    font-weight: 700;
-}
-
-.itinerary__event-place {
-    text-decoration: underline;
-    font-weight: 700;
-}
-
-/* --- BOTÓN DE MAPAS Y HOVER --- */
-.btn-maps {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 13.67vw;
-    height: 2.41vw;
-    background-color: var(--accent);
-    color: var(--cream);
-    font-family: var(--font-quattrocento);
-    font-weight: 700;
-    font-size: 1.17vw;
-    text-decoration: none;
-    border-radius: 2px;
-    border: 1px solid transparent;
-    /* Optimización: Solo animamos propiedades específicas */
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-}
-
-.btn-maps:hover {
-    background-color: var(--cream);
-    color: var(--dark-brown);
-    border-color: var(--dark-brown);
-}
-
-/* --- AGRADECIMIENTO FINAL --- */
-.itinerary__footer {
-    width: 94vw;
-    margin: 5vw auto 0;
-    padding-bottom: 18vw;
-    display: flex;
-    justify-content: flex-start;
-    margin-top: 8vw;
-    margin-bottom: 12vw;
-    text-align: left;
-}
-
-.itinerary__thanks {
-    font-family: var(--font-script);
-    font-weight: 400;
-    font-size: 4vw;
-    width: 40vw;
-    line-height: 1.1;
-    color: var(--accent);
-    margin-left: 15vw;
-}
-
+/* LÍNEA CENTRAL DIVISORIA */
 .itinerary__line {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    top: 8vw;
-    bottom: 8vw;
+    top: 5%;
+    bottom: 5%;
     width: 0;
-    border-left: 2px dashed var(--dark-brown, #733510);
-    opacity: 0.6;
+    border-left: 2px dashed var(--accent);
+    opacity: 0.5;
+    z-index: 0;
 }
 
-/* --- LÍNEAS HORIZONTALES (CONECTORES) Y CONTENEDOR DE IMAGEN --- */
+/* EVENTOS */
+.itinerary__event {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+.itinerary__event--left {
+    align-items: flex-end;
+    text-align: right;
+}
+
+.itinerary__event--right {
+    align-items: flex-start;
+    text-align: left;
+}
+
 .itinerary__img-wrapper {
     position: relative;
     display: inline-flex;
     align-items: center;
-    margin-bottom: 1.5vw;
+    margin-bottom: 20px;
 }
 
-.itinerary__img {
-    height: auto;
-    display: block;
+/* CONECTORES (Las líneas horizontales de las imágenes) */
+.itinerary__connector {
+    position: absolute;
+    top: 50%;
+    width: clamp(30px, 6vw, 80px);
+    height: 0;
+    border-top: 2px dashed var(--accent);
+    opacity: 0.5;
 }
 
 .itinerary__event--left .itinerary__connector {
@@ -878,190 +798,185 @@ body {
     right: 100%;
 }
 
-/* --- ALINEACIÓN DE TEXTOS Y BOTONES --- */
-.itinerary__event-info p {
-    margin: 0.3vw 0;
+/* IMÁGENES FLUIDAS MANTENIENDO PROPORCIÓN */
+.itinerary__img {
+    height: auto;
+    display: block;
+    object-fit: cover;
 }
 
-.itinerary__event--left .btn-maps {
-    margin-left: auto;
-    margin-top: 0.8vw;
-}
+.itinerary__img--religiosa { width: clamp(150px, 23vw, 280px); aspect-ratio: 23 / 16; }
+.itinerary__img--civil     { width: clamp(120px, 18vw, 220px); aspect-ratio: 18 / 16; }
+.itinerary__img--recepcion { width: clamp(125px, 19vw, 230px); aspect-ratio: 19 / 15; }
+.itinerary__img--cena      { width: clamp(90px, 13vw, 160px);  aspect-ratio: 13 / 14; }
 
-.itinerary__event--right .btn-maps {
-    margin-right: auto;
-    margin-top: 0.8vw;
-}
-
-.itinerary__header {
-    margin-top: 10vw;
-    text-align: center;
-    margin-bottom: 6vw;
-}
-
-/* --- EVENTOS Y ALINEACIÓN ESTRICTA --- */
-.itinerary__event {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
+/* TEXTOS DE EVENTOS */
 .itinerary__event-info {
     width: 100%;
 }
 
-.itinerary__event--left {
-    align-items: flex-end;
-}
-
-.itinerary__event--left .itinerary__event-info {
-    text-align: right;
-}
-
-.itinerary__event--right {
-    align-items: flex-start;
-}
-
-.itinerary__event--right .itinerary__event-info {
-    text-align: left;
-}
-
-.itinerary__spacer {
-    width: 100%;
-}
-
-.itinerary__subtitle {
+.itinerary__event-title {
     font-family: var(--font-mono);
-    font-style: italic;
-    font-weight: 300;
-    font-size: 1.66vw;
-    color: var(--dark-brown);
-    margin-top: 1.5vw;
+    font-weight: 500;
+    font-size: clamp(18px, 1.75vw, 24px);
+    color: var(--accent);
+    margin-top: 10px;
+    margin-bottom: 5px;
 }
 
-/* --- IMÁGENES (Dimensiones exactas) --- */
-.itinerary__img--religiosa {
-    width: 23.31vw;
-    height: 16vw;
+.itinerary__event-info p {
+    margin: 5px 0;
+    font-size: clamp(14px, 2.1vw, 18px);
 }
 
-.itinerary__img--civil {
-    width: 18.53vw;
-    height: 16.29vw;
+.itinerary__event-info p:nth-of-type(1) { font-weight: 700; }
+.itinerary__event-place { text-decoration: underline; font-weight: 700; }
+
+.btn-maps {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 24px;
+    margin-top: 15px;
+    background-color: var(--accent);
+    color: var(--cream);
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: clamp(12px, 1.1vw, 15px);
+    text-decoration: none;
+    border-radius: 2px;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
 }
 
-.itinerary__img--recepcion {
-    width: 18.96vw;
-    height: 15.58vw;
+.btn-maps:hover {
+    background-color: transparent;
+    color: var(--accent);
+    border-color: var(--accent);
 }
 
-.itinerary__img--cena {
-    width: 13.20vw;
-    height: 14.28vw;
+/* DRESSCODE */
+.itinerary__dresscode {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    font-family: var(--font-mono);
+    font-size: clamp(12px, 1.2vw, 16px);
+    line-height: 1.4;
+    margin-top: clamp(40px, 6vw, 80px);
 }
 
-/* FAQ */
-/* --- CONTENEDOR PRINCIPAL --- */
-/* --- CONTENEDOR PRINCIPAL --- */
+.itinerary__dresscode p {
+    padding-left: 15px;
+}
+
+/* FOOTER / AGRADECIMIENTO */
+.itinerary__footer {
+    width: 100%;
+    margin-top: clamp(60px, 8vw, 120px);
+    display: flex;
+    justify-content: flex-start;
+}
+
+.itinerary__thanks {
+    font-family: var(--font-script);
+    font-weight: 400;
+    font-size: clamp(35px, 4vw, 55px);
+    line-height: 1.1;
+    color: var(--accent);
+    max-width: 500px;
+}
+
+
+/* ==========================================
+   FAQ
+   ========================================== */
 .faqs {
     background-color: var(--sage);
-    min-height: 100vh;
-    /* Garantiza que ocupe al menos una pantalla completa */
-    height: auto;
-    /* Deja que las preguntas dicten la altura real */
+    padding: var(--section-pad-y) var(--section-pad-x);
     width: 100%;
-
-    /* 🔴 clamp(Mínimo px, Ideal vw, Máximo px) */
-    padding-top: clamp(60px, 8vw, 120px);
-
-    /* 🔴 El secreto está aquí: un padding inferior fijo pero flexible */
-    padding-bottom: clamp(80px, 10vw, 150px);
-
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     box-sizing: border-box;
 }
 
-/* --- ENCABEZADO --- */
+.faqs__container {
+    width: 100%;
+    max-width: 1200px;
+}
+
 .faqs__header {
     text-align: center;
-    margin-bottom: 6vw;
+    margin-bottom: clamp(40px, 6vw, 80px);
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .faqs__title-top {
-    font-family: var(--font-quattrocento);
+    font-family: var(--font-serif);
     font-weight: 400;
-    font-size: 9vw;
-    color: var(--dark-brown);
+    font-size: clamp(60px, 9vw, 110px);
+    color: var(--text);
     line-height: 1;
 }
 
 .faqs__title-bottom {
     font-family: var(--font-script);
     font-weight: 400;
-    font-size: 10vw;
+    font-size: clamp(70px, 10vw, 120px);
     color: var(--accent);
     line-height: 1;
-    margin-top: -3.5vw;
-    margin-left: 20vw;
+    margin-top: -30px;
+    margin-left: 10%;
 }
 
-/* --- GRID DE 2 COLUMNAS --- */
 .faqs__grid {
-    width: 86vw;
-    margin: 0 auto;
+    width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    column-gap: 8vw;
+    gap: clamp(40px, 6vw, 80px);
 }
 
 .faqs__column {
     display: flex;
     flex-direction: column;
-    gap: 2vw;
+    gap: 30px;
 }
 
-/* --- DISEÑO DE LAS PREGUNTAS (FAQ) --- */
 .faq {
     background: transparent;
     width: 100%;
 }
 
-/* --- DISEÑO DEL SUMMARY --- */
 .faq__summary {
     display: flex;
     justify-content: space-between;
     align-items: center;
     list-style: none;
     cursor: pointer;
-    padding-bottom: 0.8vw;
+    padding-bottom: 10px;
     border-bottom: 2px dashed var(--accent);
     outline: none;
 }
 
-.faq__summary:focus {
-    outline: none;
-}
-
-/* --- FLECHA ESTILIZADA --- */
 .faq__icon {
     display: inline-block;
-    width: 1.2vw;
-    height: 1.2vw;
-    border-bottom: 2px solid var(--dark-brown);
-    border-right: 2px solid var(--dark-brown);
+    width: clamp(12px, 1.2vw, 16px);
+    height: clamp(12px, 1.2vw, 16px);
+    border-bottom: 2px solid var(--accent);
+    border-right: 2px solid var(--accent);
     transform: rotate(45deg);
     flex-shrink: 0;
-    margin-left: 2vw;
-    /* Optimización de animación de flecha */
+    margin-left: 20px;
     transition: transform 0.3s ease;
     will-change: transform;
 }
 
 details[open] .faq__icon {
-    transform: rotate(225deg) translate(-0.2vw, -0.2vw);
+    transform: rotate(225deg) translate(-2px, -2px);
 }
 
 .faq__summary::-webkit-details-marker {
@@ -1069,65 +984,69 @@ details[open] .faq__icon {
 }
 
 .faq__title {
-    font-family: var(--font-quattrocento);
+    font-family: var(--font-serif);
     font-weight: 400;
-    font-size: 1.95vw;
-    color: var(--dark-brown);
-    line-height: 1;
+    font-size: clamp(18px, 1.95vw, 26px);
+    color: var(--text);
+    line-height: 1.2;
 }
 
-/* --- TEXTO DE RESPUESTA --- */
 .faq__content {
     font-family: var(--font-mono);
-    font-size: 1.17vw;
-    color: var(--dark-brown);
+    font-size: clamp(14px, 1.17vw, 16px);
+    color: var(--text);
     line-height: 1.6;
-    padding-top: 1.5vw;
-    padding-bottom: 1vw;
+    padding-top: 15px;
+    padding-bottom: 10px;
 }
 
-/* --- FOOTER (SELLO Y TEXTO) --- */
 .faqs__footer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 4vw;
+    margin-top: clamp(50px, 6vw, 80px);
 }
 
 .faqs__seal {
-    width: 10vw;
+    width: clamp(80px, 10vw, 120px);
     height: auto;
-    margin-bottom: 1vw;
+    margin-bottom: 15px;
 }
 
 .faqs__thanks {
     font-family: var(--font-script);
     font-weight: 400;
-    font-size: 6vw;
+    font-size: clamp(45px, 6vw, 75px);
     color: var(--accent);
     line-height: 1;
 }
 
-/* GALLERY */
-/* --- CONTENEDOR PRINCIPAL --- */
+/* ==========================================
+   GALERÍA (Imágenes)
+   ========================================== */
 .gallery {
     position: relative;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
+    width: 100%;
+    
+    /* 1. Aumentamos drásticamente el padding vertical. 
+       Esto empuja los bordes superior e inferior, haciendo la sección más alta 
+       para revelar mucha más imagen de fondo. */
+    padding: clamp(100px, 12vw, 180px) 20px; 
+    
+    /* Opcional: Le damos una altura mínima para asegurar que el fondo luzca */
+    min-height: 85vh; 
+    
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    background-color: var(--cream);
 }
 
-/* --- IMAGEN DE FONDO --- */
+/* El fondo se queda exactamente igual */
 .gallery__bg-wrapper {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 1;
+    inset: 0;
+    z-index: 0; 
     overflow: hidden;
 }
 
@@ -1135,105 +1054,116 @@ details[open] .faq__icon {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 100vh;
-    height: 100vw;
-    object-fit: cover;
+    
+    /* Aumentamos dramáticamente el ancho (que será el alto visual debido a la rotación). 
+       Usamos max() para asegurar que cubra tanto en pantallas altas (dvh) como en monitores grandes (px). */
+    width: max(170dvh, 1800px); 
+    
+    /* Aumentamos también el alto original (que será el ancho visual) para que no falte a los lados. */
+    height: max(110vw, 1200px); 
+    
+    object-fit: contain;
     transform: translate(-50%, -50%) rotate(90deg);
 }
 
-/* --- FOTOS FRONTALES --- */
+/* ==========================================
+   CONTENIDO DE LA GALERÍA (Las 2 fotos)
+   ========================================== */
 .gallery__content {
-    position: relative;
-    z-index: 2;
+    position: relative; 
+    z-index: 2; 
     display: flex;
-    justify-content: space-around;
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
-    width: 80vw;
-    height: 100%;
+    
+    /* 2. Aumentamos el gap para darles mucha más respiración entre ellas */
+    gap: clamp(30px, 6vw, 80px); 
+    
+    /* Reducimos ligeramente el ancho del contenedor para ayudar a que sean más angostas */
+    width: 80%; 
+    max-width: 850px; 
 }
 
 .gallery__photo {
-    width: 28vw;
-    height: 75vh;
+    flex: 1;
+    width: 100%;
+    
+    /* Le damos un poco más de margen de altura máxima para compensar que ahora son más angostas */
+    max-height: 65vh; 
+    
+    /* 3. Cambiamos la proporción a 2/3 (Fotografía de retrato estándar). 
+       Esto las hace visualmente más delgadas de los lados. */
+    aspect-ratio: 2 / 3;
     object-fit: cover;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15); 
 }
-
-/* REGALO */
-/* --- CONTENEDOR DE LA SECCIÓN --- */
+/* ==========================================
+   REGALO (GIFT)
+   ========================================== */
 .gift {
-    width: 100vw;
-    min-height: 104.16vh;
-    /* 🔴 Cambiamos height fijo por min-height */
-    height: auto;
-    /* 🔴 Permitimos que el contenedor crezca según el contenido */
-    padding-bottom: 60px;
-    /* 🔴 Agregamos un colchón inferior para proteger el texto */
     background-color: var(--cream);
+    padding: var(--section-pad-y) var(--section-pad-x);
     position: relative;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
 }
 
 .gift__container {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
     width: 100%;
-    height: 100%;
-    padding-top: 15vh;
-    padding-left: 13.17vw;
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: clamp(40px, 5vw, 80px);
 }
 
-/* --- CONTENIDO GENERAL Y HEADER --- */
 .gift__content {
-    width: 38.02vw;
-    margin-left: 4.98vw;
+    width: 100%;
+    max-width: 500px;
     display: flex;
     flex-direction: column;
 }
 
 .gift__header {
     position: relative;
-    margin-bottom: 14vh;
-}
-
-/* --- TÍTULOS --- */
-.gift__title-bottom {
-    font-family: var(--font-script);
-    font-weight: 400;
-    font-size: 4.68vw;
-    color: var(--accent);
-    line-height: 1;
-    position: absolute;
-    top: 4.68vh;
-    left: 13.9vw;
-    white-space: nowrap;
+    margin-bottom: clamp(40px, 6vw, 80px);
 }
 
 .gift__title-top {
-    font-family: var(--font-quattrocento);
+    font-family: var(--font-serif);
     font-weight: 400;
-    font-size: 4.49vw;
-    color: var(--dark-brown);
+    font-size: clamp(40px, 4.5vw, 60px);
+    color: var(--text);
     line-height: 1;
 }
 
-/* --- TEXTOS BASE --- */
+.gift__title-bottom {
+    font-family: var(--font-script);
+    font-weight: 400;
+    font-size: clamp(45px, 5vw, 70px);
+    color: var(--accent);
+    line-height: 1;
+    margin-top: -15px;
+    margin-left: 20%; /* Reemplaza el absolute problemático */
+}
+
 .gift__text {
     font-family: var(--font-mono);
     font-weight: 300;
-    font-size: 1.27vw;
+    font-size: clamp(14px, 1.27vw, 18px);
     color: var(--text);
     line-height: 1.6;
-    margin-bottom: 1.5vw;
+    margin-bottom: 20px;
     text-align: justify;
 }
 
-/* --- DATOS BANCARIOS --- */
 .gift__bank {
     font-family: var(--font-mono);
-    font-size: 1.27vw;
-    margin: 2vw 0;
+    font-size: clamp(14px, 1.27vw, 18px);
+    margin: 25px 0;
     width: 100%;
 }
 
@@ -1254,194 +1184,179 @@ details[open] .faq__icon {
 .gift__account {
     display: flex;
     align-items: center;
-    gap: 0.5vw;
+    gap: 10px;
+    margin-top: 5px;
 }
 
 .gift__copy-icon {
-    width: 1.5vw;
-    height: 1.5vw;
+    width: clamp(18px, 1.5vw, 24px);
+    height: clamp(18px, 1.5vw, 24px);
     cursor: pointer;
     color: var(--accent);
     transition: transform 0.2s ease, color 0.2s ease;
-    will-change: transform;
 }
 
 .gift__copy-icon:hover {
     transform: scale(1.15);
-    color: var(--dark-brown);
+    color: var(--text);
 }
 
-/* --- AGRADECIMIENTO --- */
 .gift__thanks {
     font-family: var(--font-mono);
     font-weight: 300;
-    /* 🔴 clamp(Mínimo en px, Ideal en vw, Máximo en px) */
     font-size: clamp(14px, 1.27vw, 22px);
     color: var(--accent);
-    /* 🔴 Hacemos lo mismo con el margen para que siempre tenga espacio real */
     margin-top: clamp(20px, 3vw, 40px);
 }
 
-/* --- IMAGEN --- */
 .gift__img {
-    width: 31.15vw;
-    height: 68.22vh;
+    width: clamp(250px, 31vw, 450px);
+    height: auto;
+    aspect-ratio: 3 / 5; /* Asegura proporción fluida */
     object-fit: cover;
-    border: none;
-    border-radius: 0;
-    margin-top: 2.08vh;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-
-/* PLAYLIST & MESSAGES SPLIT */
-/* --- CONTENEDOR PRINCIPAL --- */
+/* ==========================================
+   PLAYLIST & MESSAGES SPLIT
+   ========================================== */
 .media-section {
-    position: relative;
-    width: 100vw;
-    height: 130.2vh;
+    width: 100%;
+    /* Mínimo la altura de la pantalla, pero crecerá si el contenido lo requiere */
+    min-height: 100vh;
     display: flex;
     flex-direction: row;
     background-color: var(--cream);
-    overflow: hidden;
+    /* overflow-x hidden previene que el carrusel provoque scroll horizontal */
+    overflow-x: hidden; 
 }
 
+/* --- MITADES EXACTAMENTE IGUALES (50/50) --- */
 .media-section__half {
+    /* Creamos una variable local para el padding horizontal */
+    --half-pad-x: clamp(20px, 4vw, 60px);
+    
+    flex: 1; 
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    
+    /* Aplicamos la variable al padding */
+    padding: clamp(60px, 8vh, 100px) var(--half-pad-x);
     position: relative;
-    width: 50vw;
-    height: 100%;
+    box-sizing: border-box;
+}
+
+/* (Las clases --left y --right, y __header se quedan igual) */
+.media-section__half--left {
+    background-color: var(--cream);
+    justify-content: space-between; 
 }
 
 .media-section__half--right {
-    background-color: var(--sage-green, #b2b8a3);
+    background-color: var(--sage);
+    justify-content: flex-start;
+    padding-bottom: 0; 
+}
+
+.media-section__header {
+    text-align: center;
+    margin-bottom: clamp(30px, 4vw, 50px);
     display: flex;
     flex-direction: column;
-    /* Empuja todo el contenido (postal y carrusel) hacia la parte inferior */
-    justify-content: flex-end;
     align-items: center;
-    /* Le da un respiro al carrusel respecto al borde inferior */
-    padding-bottom: 10vh;
+    width: 100%;
 }
 
-/* --- TÍTULOS --- */
 .media-section__title-nuestra,
 .media-section__title-dejanos {
-    position: absolute;
-    top: 10vh;
-    font-family: var(--font-quattrocento);
+    font-family: var(--font-serif);
     font-weight: 300;
-    font-size: 3.71vw;
-    color: var(--dark-brown);
+    font-size: clamp(35px, 4vw, 60px);
+    color: var(--text);
+    line-height: 1;
+    margin: 0; 
 }
 
-.media-section__title-nuestra {
-    left: 12.94vw;
-}
-
-.media-section__title-dejanos {
-    left: 13.42vw;
-}
-
+/* 1. "Playlist" y "Mensaje": Más delgadas y más cerca de las palabras de arriba */
 .media-section__title-playlist,
 .media-section__title-mensaje {
-    position: absolute;
-    top: 13.5vh;
     font-family: var(--font-script);
-    font-size: 4.1vw;
+    font-size: clamp(45px, 5vw, 80px);
     color: var(--accent);
-    font-weight: 400;
+    line-height: 1.3;
+    
+    /* Hacemos la fuente más delgada y fina */
+    font-weight: 300; 
+    -webkit-font-smoothing: antialiased;
+    
+    /* Subimos la distancia negativa para acercarlas a "Nuestra" y "Déjanos un" */
+    margin-top: -30px; 
+    margin-bottom: 30px;
 }
 
-.media-section__title-playlist {
-    left: 25.3vw;
-}
-
-.media-section__title-mensaje {
-    left: 24.65vw;
-}
-
-/* --- SUBTÍTULOS --- */
-.media-section__subtitle-left,
-.media-section__subtitle-right {
-    position: absolute;
-    top: 24.5vh;
+/* --- Más aire entre el título elegante y el texto de abajo --- */
+.media-section__subtitle {
     font-family: var(--font-mono);
     font-style: italic;
-    font-size: 1.27vw;
-    margin-top: 3vh;
-}
-
-.media-section__subtitle-left {
-    left: 15.15vw;
+    font-size: clamp(14px, 1.27vw, 18px);
     color: var(--text);
+    /* Aumentamos significativamente el aire general */
+    margin-top: clamp(35px, 5vw, 60px); 
+    text-align: center;
+    max-width: 90%;
 }
 
-.media-section__subtitle-right {
-    left: 8.45vw;
-    color: var(--dark-brown);
-    white-space: nowrap;
-}
-
-/* --- PLAYLIST (Izquierda) --- */
-.media-section__spotify-link {
-    position: absolute;
-    top: 29.5vh;
-    left: 5.86vw;
-    transition: transform 0.3s ease;
-    will-change: transform;
-}
-
-.media-section__spotify-link:hover {
-    transform: translateY(-1vh);
+/* Aire extra específico para la sección de Mensaje (Derecha) */
+.media-section__half--right .media-section__subtitle {
+    margin-top: clamp(50px, 6vw, 80px); 
 }
 
 .media-section__spotify-img {
-    width: 37.96vw;
-    height: 80vh;
+    width: clamp(250px, 30vw, 550px);
+    height: auto;
     object-fit: contain;
 }
+.media-section__spotify-link {
+    transition: transform 0.3s ease;
+    margin: 20px 0;
+}
+
+.media-section__spotify-link:hover {
+    transform: translateY(-5px);
+}
+
 
 .media-section__footer-text {
-    position: absolute;
-    top: 110vh;
-    left: 13.95vw;
     font-family: var(--font-mono);
     font-style: italic;
-    font-size: 0.97vw;
+    font-size: clamp(15px, 1.2vw, 20px);
     text-align: center;
     color: var(--text);
-    line-height: 1.5;
-    white-space: nowrap;
+    margin-top: 15px;
+    max-width: 80%;
 }
 
 /* --- POSTAL INTERACTIVA --- */
 .media-section__postcard {
-    position: relative;
-    /* Magia de Flexbox: Obliga a la postal a renderizarse ANTES que el carrusel */
-    order: 1;
-    /* Esta será tu separación constante y segura entre el cuadro y los círculos */
-    margin-bottom: 6vh;
-
-    /* El resto se queda exactamente igual */
-    width: 25vw;
-    height: 18vw;
+    width: clamp(250px, 25vw, 400px);
+    aspect-ratio: 4/3; 
     background-image: url('../img/BYVImg/Recurso13.svg');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    background-color: transparent;
     filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.15));
     cursor: pointer;
     transition: transform 0.3s ease, filter 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    will-change: transform, filter;
-
-    /* Aseguramos matar cualquier top/left residual */
-    top: auto;
-    left: auto;
+    
+    margin-top: clamp(40px, 5vw, 70px); 
+    /* Aumentamos drásticamente el espacio inferior para separar el carrusel */
+    margin-bottom: clamp(60px, 8vw, 120px); 
 }
-
 .media-section__postcard:hover {
     transform: scale(1.03) rotate(-2deg);
     filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.2));
@@ -1456,121 +1371,118 @@ details[open] .faq__icon {
     pointer-events: none;
 }
 
-.media-section__postcard-label {
+.media-section__postcard-label,
+.media-section__postcard-btn {
     font-family: var(--font-mono);
-    font-size: 0.9vw;
+    font-size: clamp(12px, 1vw, 16px);
     color: var(--accent);
-    margin-bottom: 1.5vw;
+}
+
+.media-section__postcard-btn {
+    text-decoration: underline;
+    align-self: flex-end;
+    margin-top: 15px;
 }
 
 .media-section__postcard-lines {
     display: flex;
     flex-direction: column;
-    gap: 1.2vw;
-    margin-bottom: 1.5vw;
+    gap: 15px;
+    margin: 15px 0;
 }
 
 .media-section__postcard-lines hr {
     border: none;
     border-bottom: 1px solid var(--text);
     width: 100%;
-    margin: 0;
 }
 
-.media-section__postcard-btn {
-    font-family: var(--font-mono);
-    font-size: 0.9vw;
-    color: var(--accent);
-    text-decoration: underline;
-    align-self: flex-end;
-}
 
-/* --- CARRUSEL Y MANTELES --- */
+/* --- CARRUSEL PERFECTAMENTE ALINEADO --- */
 .media-section__carousel-wrapper {
-    position: relative;
-    /* Magia de Flexbox: Obliga al carrusel a renderizarse DESPUÉS de la postal */
-    order: 2;
-    width: 50vw;
-    overflow: hidden;
-
-    /* Aseguramos matar cualquier bottom/left residual */
-    bottom: auto;
-    left: auto;
+    /* LA MAGIA: Obligamos al carrusel a anclarse a la izquierda ignorando el centrado del padre */
+    align-self: flex-start; 
+    
+    width: calc(100% + (var(--half-pad-x) * 2));
+    margin-left: calc(var(--half-pad-x) * -1); 
+    
+    /* Ahora overflow ocultará el texto exactamente en la línea divisoria */
+    overflow: hidden; 
+    margin-top: 15px; 
+    padding-bottom: clamp(30px, 5vh, 60px); 
 }
 
 .media-section__carousel-track {
     display: flex;
-    gap: 3vw;
+    gap: clamp(20px, 3vw, 50px);
     width: max-content;
-    animation: scrollCarousel 20s linear infinite;
-    /* Aceleración por hardware forzada para el carrusel infinito */
+    animation: scrollCarousel 30s linear infinite; 
     will-change: transform;
 }
 
 @keyframes scrollCarousel {
-    from {
-        transform: translate3d(0, 0, 0);
-    }
-
-    to {
-        transform: translate3d(-50%, 0, 0);
-    }
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(-50%, 0, 0); }
 }
 
+/* --- CÍRCULOS Y TEXTO LIGERAMENTE MÁS CHICOS --- */
 .media-section__mat {
-    width: 22vw;
-    height: 22vw;
+    /* Reducimos la escala general del círculo */
+    width: clamp(170px, 19vw, 260px); 
+    aspect-ratio: 1/1;
     background-image: url('../img/BYVImg/Recurso15.svg');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    background-color: transparent;
+    
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 4.5vw;
+    
+    /* Reducimos el padding interno para aprovechar el espacio del círculo menor */
+    padding: clamp(20px, 3.5vw, 40px);
     text-align: center;
 }
 
 .media-section__mat-text {
     font-family: var(--font-mono);
-    font-size: 0.9vw;
+    /* Reducimos sutilmente la fuente */
+    font-size: clamp(11px, 0.85vw, 14px); 
     color: var(--text);
     line-height: 1.4;
-    margin-bottom: 1vw;
+    margin-bottom: 10px;
 }
 
 .media-section__mat-author {
     font-family: var(--font-mono);
     font-weight: 700;
-    font-size: 0.8vw;
+    /* Reducimos sutilmente la fuente del autor */
+    font-size: clamp(11px, 0.75vw, 13px); 
     color: var(--accent);
-    margin-top: 0.5vw;
 }
-
-
-
-/* --- REDISEÑO DEL MODAL (Premium) --- */
+/* ==========================================
+   MODAL
+   ========================================== */
 .message-modal {
     margin: auto;
     border: none;
     border-radius: 12px;
     background: transparent;
-    width: 45vw;
+    width: 90%;
     max-width: 600px;
     padding: 0;
     overflow: visible;
 }
 
 .message-modal::backdrop {
-    background: rgba(43, 38, 33, 0.4);
-    backdrop-filter: blur(8px);
+    background: rgba(43, 38, 33, 0.6);
+    backdrop-filter: blur(5px);
 }
 
 .message-modal__container {
     background-color: var(--cream);
-    padding: 4vw;
+    padding: clamp(30px, 5vw, 60px);
     position: relative;
     border-radius: 8px;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
@@ -1581,16 +1493,15 @@ details[open] .faq__icon {
 
 .message-modal__close {
     position: absolute;
-    top: 1.5vw;
-    right: 1.5vw;
+    top: 20px;
+    right: 20px;
     background: none;
     border: none;
-    color: var(--dark-brown);
+    color: var(--text);
     cursor: pointer;
-    width: 2vw;
-    height: 2vw;
+    width: 30px;
+    height: 30px;
     transition: transform 0.2s ease;
-    will-change: transform;
 }
 
 .message-modal__close:hover {
@@ -1599,29 +1510,29 @@ details[open] .faq__icon {
 
 .message-modal__header {
     text-align: center;
-    margin-bottom: 3vw;
+    margin-bottom: 30px;
 }
 
 .message-modal__title {
-    font-family: var(--font-quattrocento);
-    font-size: 2.5vw;
-    color: var(--dark-brown);
+    font-family: var(--font-serif);
+    font-size: clamp(24px, 3vw, 40px);
+    color: var(--text);
     line-height: 1;
 }
 
 .message-modal__subtitle {
     font-family: var(--font-script);
-    font-size: 3.5vw;
+    font-size: clamp(35px, 4vw, 55px);
     color: var(--accent);
     line-height: 1;
-    margin-top: -0.5vw;
+    margin-top: -10px;
 }
 
 .message-modal__form {
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 2vw;
+    gap: 20px;
 }
 
 .message-modal__input,
@@ -1631,9 +1542,9 @@ details[open] .faq__icon {
     border: none;
     border-bottom: 1px solid var(--text);
     font-family: var(--font-mono);
-    font-size: 1.1vw;
-    color: var(--dark-brown);
-    padding: 1vw 0.5vw;
+    font-size: clamp(14px, 1.2vw, 16px);
+    color: var(--text);
+    padding: 10px 5px;
     outline: none;
     transition: border-color 0.3s ease;
 }
@@ -1645,429 +1556,223 @@ details[open] .faq__icon {
 
 .message-modal__textarea {
     resize: none;
-    height: 8vh;
+    height: 100px;
 }
 
 .message-modal__submit {
-    margin-top: 1vw;
-    padding: 1.2vw 2vw;
+    margin-top: 20px;
+    padding: 15px 30px;
     background-color: transparent;
-    border: 1px solid var(--dark-brown);
-    color: var(--dark-brown);
-    font-family: var(--font-quattrocento);
-    font-size: 1.2vw;
+    border: 1px solid var(--text);
+    color: var(--text);
+    font-family: var(--font-serif);
+    font-size: clamp(12px, 1.2vw, 16px);
     letter-spacing: 0.1em;
     text-transform: uppercase;
     cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: all 0.3s ease;
     align-self: center;
 }
 
 .message-modal__submit:hover {
-    background-color: var(--dark-brown);
+    background-color: var(--text);
     color: var(--cream);
 }
 
 
-/* CLOSING */
-/* --- CONTENEDOR PRINCIPAL --- */
+/* ==========================================
+   CLOSING SECTION
+   ========================================== */
 .closing-section {
-    width: 100vw;
-    height: 110vh;
-    /* 🔴 Reducido drásticamente de 200vh a 110vh */
-    background-color: var(--cream, #E6E1DC);
+    width: 100%;
+    min-height: 100dvh;
+    background-color: var(--cream);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--section-pad-y) var(--section-pad-x);
     position: relative;
     overflow: hidden;
 }
 
 .closing-section__container {
     width: 100%;
-    height: 100%;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(40px, 6vw, 80px);
     position: relative;
+    z-index: 2;
 }
-
-/* --- TÍTULO SUPERIOR --- */
+/* ==========================================
+   TÍTULO PRINCIPAL
+   ========================================== */
 .closing-section__title {
-    position: absolute;
-    top: 12vh;
-    left: 12.87vw;
-    width: 77.36vw;
-    font-family: var(--font-quattrocento);
-    font-size: 6.31vw;
-    color: var(--dark-brown);
+    font-family: var(--font-serif);
+    font-size: clamp(40px, 6vw, 90px);
+    font-weight: 300;
+    color: var(--text);
     line-height: 1.1;
-    font-weight: 400;
-    text-align: left;
+    width: 100%;
+    /* CAMBIO: Alineamos todo el bloque a la izquierda */
+    text-align: left; 
 }
 
 .closing-section__title-accent {
     display: block;
-    text-align: right;
     color: var(--accent);
+    /* CAMBIO: Forzamos solo esta línea hacia la derecha */
+    text-align: right; 
 }
 
-.closing-section__title-right {
-    display: block;
-    margin-left: 25%;
-}
-
-/* --- COMPOSICIÓN CENTRAL --- */
-.closing-section__centerpiece {
-    position: absolute;
-    top: 32vh;
-    left: 0;
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
+/* ==========================================
+   TEXTO DE FONDO (Ocho mil momentos...)
+   ========================================== */
 .closing-section__bg-text {
-    position: absolute;
-    font-family: var(--font-script);
-    font-size: 12.02vw;
-    color: var(--accent);
-    text-align: center;
-    white-space: nowrap;
-    line-height: 1.1;
-    font-weight: 400;
-    transform: rotate(-6.52deg);
-    z-index: 1;
-}
-
-.closing-section__envelope {
-    position: relative;
-    z-index: 2;
-    width: 37.45vw;
-    height: auto;
-    transform: rotate(6deg);
-    filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.15));
-}
-
-.closing-section__composition {
-    position: relative;
-    width: 100%;
-    max-width: 900px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 8vh 0;
-}
-
-.closing-section__background-text {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: 'Pinyon Script', cursive;
-    font-weight: 400;
-    font-size: clamp(60px, 8vw, 123.13px);
-    color: #8C593B;
+    transform: translate(-50%, -50%) rotate(-5deg);
+    font-family: var(--font-script);
+    font-size: clamp(80px, 12vw, 180px);
+    font-weight: 300;
+    color: var(--accent);
     text-align: center;
-    white-space: nowrap;
-    z-index: 1;
-    line-height: 1.2;
+    z-index: 1; 
+    
+    white-space: nowrap; 
+    
+    /* EL CAMBIO MÁGICO */
+    width: max-content; /* Antes era 100% */
+    
+    line-height: 0.9; 
 }
 
-/* --- MENSAJE FINAL --- */
-.closing-section__message-wrapper {
-    position: absolute;
-    top: 65vh;
-    left: 18.54vw;
-    width: 58.59vw;
-}
-
+/* ==========================================
+   MENSAJE FINAL
+   ========================================== */
 .closing-section__message {
-    font-family: var(--font-quattrocento);
-    font-size: 1.95vw;
-    color: var(--dark-brown);
+    font-family: var(--font-serif);
+    font-size: clamp(18px, 2vw, 28px);
+    color: var(--text);
     line-height: 1.4;
-    font-weight: 400;
-    text-align: left;
+    z-index: 5;
+    /* CAMBIOS CLAVE: */
+    text-align: left; /* Alineamos el texto a la izquierda */
+    align-self: flex-start; /* Empujamos todo el bloque hacia la izquierda del contenedor */
+    
+    /* Reducimos un poco el ancho máximo. Al estar alineado a la izquierda, 
+       esto liberará espacio a la derecha para que la flor no estorbe la lectura. */
+    max-width: 650px; 
 }
 
-/* --- FLOR DECORATIVA --- */
-.closing-section__flower {
-    position: absolute;
-    top: 50vh;
-    left: 66vw;
-    width: 44.64vw;
-    height: auto;
-    transform: rotate(-7deg);
-    z-index: 3;
-    pointer-events: none;
-}
-
-
-/* --- FOOTER --- */
+/* ==========================================
+   FOOTER (Créditos)
+   ========================================== */
 .closing-section__footer {
-    position: absolute;
-    top: 188vh;
-    /* 🔴 Lo regresamos a top, pero ajustado a la nueva altura del lienzo */
-    left: 5.69vw;
+    width: 100%;
+    max-width: 1200px;
     font-family: var(--font-mono);
-    font-size: 1.17vw;
-    color: var(--dark-brown);
-    line-height: 1.5;
-    text-align: left;
+    font-size: clamp(10px, 1vw, 14px);
+    color: var(--accent);
     text-transform: uppercase;
+    margin-top: clamp(60px, 8vw, 100px);
+    z-index: 3;
+    
+    /* CAMBIO: Alinear a la izquierda para emparejar con el resto del diseño */
+    text-align: left; 
 }
 
 .closing-section__footer a {
     color: inherit;
     text-decoration: underline;
-}
-
-/* =========================================
-   MEDIA QUERIES GLOBALES
-========================================= */
-
-/* --- 1. ESCRITORIO (Límites de crecimiento > 1024px) --- */
-/* =========================================
-   MEDIA QUERIES GLOBALES
-========================================= */
-
-/* --- 1. ESCRITORIO (Límites de crecimiento > 1024px) --- */
-@media (max-width: 1024px) {
-    body .faqs {
-        /* Usamos max-content para que la caja mida exactamente lo que su contenido abierto/cerrado requiera */
-        height: max-content !important;
-        min-height: 0 !important;
-        padding-bottom: 5vh !important;
-        /* Reducido al mínimo estético */
-    }
-
-    /* --- REGLAS GENERALES PARA LA SECCIÓN (En tu media query de ~1100px o 1024px) --- */
-    .media-section {
-        min-height: 100vh;
-        height: auto;
-        /* Dejamos que el contenido mande */
-    }
-
-    /* Si a 1070px quieres que sigan lado a lado (50/50), usa width: 50vw. 
-   Si quieres que se apilen (una arriba de otra), usa width: 100vw. */
-    .media-section__half {
-        width: 50vw;
-        /* Ajusta a 100vw si prefieres diseño de 1 sola columna aquí */
-        height: auto;
-        min-height: 100vh;
-    }
-
-    /* --- COLUMNA DERECHA: FLUJO PERFECTO --- */
-    .media-section__half--right {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        /* Empezamos a apilar desde arriba */
-        align-items: center;
-        height: auto;
-        padding-top: 10vh;
-        /* Respiro superior */
-        padding-bottom: 5vh;
-        /* Respiro inferior para el carrusel */
-        gap: 0;
-        /* Controlaremos los espacios con márgenes específicos */
-    }
-
-    /* 1. Metemos los títulos al flujo normal eliminando lo absoluto */
-    .media-section__half--right .media-section__title-dejanos,
-    .media-section__half--right .media-section__title-mensaje,
-    .media-section__half--right .media-section__subtitle-right {
-        position: relative;
-        top: 0;
-        left: 0;
-        margin: 0;
-        text-align: center;
-    }
-
-    /* 2. Ajuste estético de la tipografía para que se empalme elegante */
-    .media-section__half--right .media-section__title-mensaje {
-        margin-top: -1rem;
-    }
-
-    .media-section__half--right .media-section__subtitle-right {
-        margin-top: 1rem;
-        margin-bottom: 4rem;
-        /* Este margen es clave: empuja la postal hacia abajo */
-        white-space: normal;
-        /* Permite que el subtítulo baje de línea si no cabe */
-    }
-
-    /* 3. Postal interactiva */
-    .media-section__postcard {
-        position: relative;
-        order: unset;
-        /* Ya no hace falta forzar el orden */
-        margin-bottom: 4rem;
-        /* Separación exacta entre postal y carrusel */
-        top: 0;
-        left: 0;
-    }
-
-    /* 4. Carrusel (se posicionará naturalmente al final) */
-    .media-section__carousel-wrapper {
-        position: relative;
-        order: unset;
-        width: 100%;
-        /* Toma todo el ancho de su mitad */
-        bottom: 0;
-        left: 0;
-        margin: 0;
-    }
-
-    .message-modal {
-        /* Aumentamos el ancho relativo para que ocupe más espacio */
-        width: 70vw !important;
-        max-width: 700px !important;
-    }
-
-    .message-modal__container {
-        padding: 6vw !important;
-        /* Más aire interno */
-    }
-
-    .message-modal__title {
-        font-size: 4vw !important;
-        /* Fuente un poco más grande que en escritorio */
-    }
-
-    .message-modal__subtitle {
-        font-size: 5.5vw !important;
-    }
-
-    .message-modal__input,
-    .message-modal__textarea {
-        font-size: 2vw !important;
-        /* Textos de input más legibles */
-        padding: 1.5vw 0.5vw !important;
-    }
-
-    .message-modal__submit {
-        font-size: 2vw !important;
-        padding: 1.5vw 3vw !important;
-    }
-
-    .message-modal__close {
-        width: 3vw !important;
-        height: 3vw !important;
-    }
-
-    .closing-section {
-        height: auto;
-        min-height: 100vh;
-        padding: 8vh 5vw 4vh 5vw;
-        /* Aire arriba, a los lados y abajo */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-
-    /* Convertimos el contenedor en una columna flexible */
-    .closing-section__container {
-        width: 100%;
-        height: auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 6vh;
-        /* 🔴 Esta es la magia: espacio uniforme entre cada elemento */
-        position: relative;
-    }
-
-    /* Reseteamos el Título (Adios absolute) */
-    .closing-section__title {
-        position: relative;
-        top: auto;
-        left: auto;
-        width: 90%;
-        font-size: 6vw;
-        text-align: center;
-    }
-
-    .closing-section__title-right {
-        margin-left: 0;
-        /* Centramos todo el texto fluido */
-    }
-
-    /* Reseteamos la Composición Central (El sobre empujará el texto) */
-    .closing-section__centerpiece {
-        position: relative;
-        top: auto;
-        left: auto;
-        width: 100%;
-        margin: 2vh 0;
-    }
-
-    /* Mantenemos el texto de fondo rotado detrás del sobre */
-    .closing-section__bg-text {
-        font-size: 10vw;
-    }
-
-    /* Reseteamos el Mensaje */
-    .closing-section__message-wrapper {
-        position: relative;
-        top: auto;
-        left: auto;
-        width: 80%;
-    }
-
-    .closing-section__message {
-        font-size: 3vw;
-        text-align: center;
-    }
-
-    /* Posicionamos la Flor para que no estorbe el flujo central */
-    .closing-section__flower {
-        top: auto;
-        bottom: 5vh;
-        /* Anclada al fondo de la sección */
-        right: -5vw;
-        left: auto;
-        width: 35vw;
-    }
-
-    /* Reseteamos el Footer */
-    .closing-section__footer {
-        position: relative;
-        top: auto;
-        left: auto;
-        width: 100%;
-        text-align: center;
-        margin-top: auto;
-        font-size: 2vw;
-    }
-
+    font-weight: 700;
 }
 
 
-/* --- 2. MÓVILES (< 768px) --- */
-@media (max-width: 768px) {
+.closing-section__composition {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-    /* Navbar */
-    .navbar {
-        height: auto;
-        padding: 15px 24px;
+
+
+.closing-section__envelope {
+    position: relative;
+    z-index: 2;
+    width: clamp(250px, 35vw, 500px);
+    height: auto;
+    transform: rotate(6deg);
+    filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.15));
+}
+
+
+.closing-section__flower {
+    position: absolute;
+    bottom: -5%;
+    right: -5%;
+    width: clamp(250px, 30vw, 550px);
+    height: auto;
+    transform: rotate(-7deg);
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.6;
+}
+.closing-section__message-wrapper{
+    margin-top: 30%;
+    z-index: 5;
+}
+
+
+/* ==========================================
+   MEDIA QUERY: Ajuste de Títulos (< 1200px)
+   ========================================== */
+@media (max-width: 1200px) {
+    /* Acercamos "Playlist" a "Nuestra" dándole un tirón más fuerte hacia arriba */
+    .media-section__title-playlist {
+        margin-top: -30px; 
     }
-.navbar__menu {
+
+    /* Separamos "Mensaje" de "Déjanos un" reduciendo el margen negativo */
+    .media-section__title-mensaje {
+        margin-top: -15px;
+        margin-bottom: 20px;
+    }
+
+    /* Le damos más aire general a los subtítulos para despegarlos del título cursivo */
+    .media-section__subtitle {
+        margin-top: 50px; 
+    }
+
+    /* Aseguramos que el subtítulo de la derecha mantenga una separación un poco mayor */
+    .media-section__half--right .media-section__subtitle {
+        margin-top: 70px;
+    }
+}
+/* ==========================================
+   MEDIA QUERIES (TABLET Y MOBILE)
+   ========================================== */
+@media (max-width: 800px) {
+        /* Navbar Toggle */
+    .navbar__menu {
         position: absolute;
         top: 100%;
         left: 0;
         width: 100%;
-        background-color: var(--cream, #E6E1DC); /* Color de fondo */
-        display: flex;
+        background-color: rgba(235, 230, 227, 0.98);
         flex-direction: column;
-        align-items: center;
-        padding: 2rem 0;
-        /* Estado inactivo (Oculto y desplazado hacia arriba) */
+        padding: 20px 0;
         opacity: 0;
         transform: translateY(-15px);
         pointer-events: none;
-        transition: opacity 0.4s ease, transform 0.4s ease;
+        transition: all 0.3s ease;
     }
     
-    /* Estado activo (Visible y en su posición final) */
     .navbar__menu.active {
         opacity: 1;
         transform: translateY(0);
@@ -2078,629 +1783,144 @@ details[open] .faq__icon {
         display: flex;
     }
 
-    details > summary {
-    list-style: none;
-    cursor: pointer;
-}
-details > summary::-webkit-details-marker {
-    display: none; 
-}
-/* Preparamos el contenido para animarse */
-.faq__content {
-    opacity: 0;
-    max-height: 0;
-    overflow: hidden;
-    margin-top: 0;
-    transition: max-height 0.5s ease, opacity 0.5s ease, margin-top 0.5s ease;
-}
+    /* Media Section (Playlist & Messages) apilados a 1 columna */
+    .media-section {
+        flex-direction: column;
+    }
+    
+    .media-section__half {
+        width: 100%;
+        padding: 60px 5vw;
+    }
 
-/* Cuando el <details> está abierto */
-details[open] .faq__content {
-    opacity: 1;
-    max-height: 200px; /* Un valor lo bastante grande para que quepa tu texto */
-    margin-top: 15px;
-}
+    /* Detalles de FAQ en móvil (Animación suave) */
+    .faq__content {
+        opacity: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease, opacity 0.4s ease;
+    }
 
-/* Animación del ícono (Si usas un '+' o una flechita en .faq__icon) */
-.faq__icon {
-    display: inline-block;
-    transition: transform 0.3s ease;
-}
-details[open] .faq__summary .faq__icon {
-    transform: rotate(180deg); /* O 45deg si es un símbolo de '+' */
-}
-    /* Hero */
+    details[open] .faq__content {
+        opacity: 1;
+        max-height: 500px; /* Suficiente para el texto */
+    }
+        /* Muestra la hamburguesa, esconde los links */
+    .navbar__toggle {
+        display: flex;
+    }
+    
+
+
     .hero__bottom {
-        padding: 0 24px;
         flex-direction: column;
         align-items: center;
         gap: 10px;
         bottom: 30px;
     }
 
-    /* Story */
-    .story {
-        min-height: 100vh;
-        padding: 15vw 5vw;
+    .countdown__timer {
+        gap: 5px;
     }
-
+    /* Historia: Apilar títulos e imagen */
     .story__top {
         flex-direction: column;
-        gap: 6vw;
-        margin-bottom: 10vw;
+        gap: 15px;
     }
-
+    
     .story__title-left,
     .story__title-right {
-        font-size: 8vw;
+        text-align: center;
         width: 100%;
     }
 
-    .story__frame {
-        width: 75vw;
-        height: 87vw;
+    /* Itinerario: Colapsar a 1 sola columna */
+    .itinerary__timeline {
+        grid-template-columns: 1fr; /* Pasa de 2 columnas a 1 */
+        row-gap: 50px;
     }
 
-    .story__bottom {
-        width: 90vw;
-        align-items: flex-end;
+    /* Ocultar elementos decorativos que rompen el móvil */
+    .itinerary__line,
+    .itinerary__connector,
+    .itinerary__spacer {
+        display: none; 
     }
 
-    .story__text {
-        font-size: 3vw;
-        line-height: 1.8;
+    /* Alinear todos los eventos a la izquierda o centro */
+    .itinerary__event--left,
+    .itinerary__event--right {
+        align-items: center;
+        text-align: center;
+    }
+    
+    .itinerary__event--left .itinerary__event-info,
+    .itinerary__event--right .itinerary__event-info {
+        text-align: center;
     }
 
-    .story__signature {
-        font-size: 10vw;
-        width: 100%;
-        margin-top: 14vw;
-        margin-right: 0;
+    /* Centrar Dresscode y Footer en celulares */
+    .itinerary__dresscode {
+        justify-content: center;
+        text-align: center;
     }
-
-    /* Countdown */
-    .countdown {
-        min-height: 100vh;
-        padding: 12vw 0 8vw 0;
-    }
-
-    .countdown__label {
-        font-size: 8vw;
-        margin-bottom: 2vw;
-    }
-
-    .countdown__title {
-        font-size: 14vw;
-        margin-bottom: 6vw;
-    }
-
-    .countdown__date {
-        font-size: 4vw;
-        margin-bottom: 12vw;
-    }
-
-    .countdown__timer {
-        width: 90vw;
-        margin-bottom: 12vw;
-    }
-
-    .countdown__item span {
-        font-size: 12vw;
-        margin-bottom: 2vw;
-    }
-
-    .countdown__item p {
-        font-size: 2.5vw;
-    }
-
-    .countdown__separator {
-        width: 0.3vw;
-        height: 16vw;
-    }
-
-    .btn--calendar {
-        font-size: 3.5vw;
-        padding: 3vw 5vw;
-    }
-
-    /* Quote */
-    .quote {
-        min-height: 100vh;
-    }
-
-    .quote__text-top,
-    .quote__text-bottom {
-        font-size: 12vw;
-    }
-
-    .quote__images {
-        gap: 3vw;
-    }
-
-    .quote__img {
-        width: 25vw;
-        height: 32vw;
-        border: 1vw solid var(--text);
-    }
-
-    .quote__flower {
-        height: 90vw;
-        right: -15vw;
-        opacity: 0.5;
-    }
-
-    .quote__pin {
-        height: 12vw;
-        right: 15vw;
-        top: 25%;
-    }
-
-    .quote__text-top {
-        margin-left: 0;
-        margin-bottom: -3vw;
-    }
-
-    .quote__text-bottom {
-        margin-right: 0;
-        margin-top: -3vw;
-    }
-
-    .itinerary__img--religiosa,
-    .itinerary__img--cena,
-    .itinerary__img--civil,
-    .itinerary__img--recepcion {
-        width: 28.31vw;
-        height: 20vw;
-    }
-
-    .itinerary__subtitle,
+    
     .itinerary__dresscode p {
-        font-size: 3vw;
-        line-height: 1.4;
-    }
-
-    .itinerary__event-title {
-        font-size: 4vw;
-        line-height: 1.4;
-    }
-
-    .itinerary__thanks {
-        font-size: 7vw;
-        line-height: 1.4;
-    }
-
-    .btn-maps {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-
-        font-size: 2.5vw;
-        padding: 1vw 2vw;
-        white-space: nowrap;
-        width: max-content;
-        height: auto;
-        margin-top: 4vw;
-    }
-
-    .faqs__grid {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        /* Centra el bloque entero en la pantalla */
-        width: 90%;
-    }
-
-    .faqs__column {
-        /* 1. Reducimos el padding a los lados subiendo el width al 95% */
-        width: 95%;
-        max-width: 500px;
-
-        display: flex;
-        flex-direction: column;
-
-        /* 2. MAGIA AQUÍ: Alineamos el contenido a la izquierda dentro de la columna centrada */
-        align-items: flex-start;
-        margin: 0 auto;
-    }
-
-    .faq {
-        width: 100%;
-        margin-bottom: 4vw;
-        text-align: left;
-        /* Aseguramos que el texto fluya hacia la izquierda */
-    }
-
-    /* --- 3. AUMENTO DE TIPOGRAFÍA --- */
-    .faq__title {
-        /* 🔴 Ajusta estos valores vw si las quieres aún más grandes */
-        font-size: 4.5vw;
-        line-height: 1.3;
-    }
-
-    .faq__content {
-        font-size: 2.8vw;
-        line-height: 1.5;
-        margin-top: 2vw;
-    }
-
-    /* --- Footer de las FAQs (Sello y "Te esperamos") --- */
-    .faqs__footer {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        /* Esto sí lo mantenemos centrado */
-        width: 100%;
-        margin-top: 8vw;
-        margin-bottom: 5vw;
-    }
-
-    .faqs__thanks {
-        font-size: 8vw;
-    }
-
-    .gallery {
-        width: 100%;
-        height: auto;
-        display: block;
-        /* Quitamos el flex centrado del escritorio */
-    }
-
-    /* 2. El wrapper del fondo se adapta al 100% del nuevo height automático */
-    .gallery__bg-wrapper {
-        width: 100%;
-        height: 100%;
-    }
-
-    /* 3. EL RESETEO VITAL: Matamos la rotación y restauramos proporciones */
-    .gallery__bg-img {
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        transform: none;
-        /* Esto elimina el rotate(90deg) y el translate */
-        object-position: center;
-    }
-
-    /* 4. Apilamos el contenido y le damos el padding vertical */
-    .gallery__content {
-        width: 100%;
-        height: auto;
-        flex-direction: column;
-        justify-content: center;
-        padding: 4rem 0;
-        /* El espacio beige ahora es parte interna del contenedor */
-        gap: 2.5rem;
-    }
-
-    /* 5. Ajuste de las fotos, cambiando los 'vh/vw' fijos por porcentajes fluidos */
-    .gallery__photo {
-        width: 85%;
-        max-width: 250px;
-        height: auto;
-        aspect-ratio: 3 / 4;
-        /* Opcional: Mantiene una proporción elegante tipo retrato */
-    }
-
-    .gift__container {
-        flex-direction: column;
-        align-items: center;
-        /* Centramos todo */
         padding-left: 0;
-        padding-top: 4rem;
-        width: 90%;
-        /* Damos un poco de respiro lateral */
-        margin: 0 auto;
+        text-indent: 0;
     }
 
-    /* 2. Ajustamos la imagen para que sea fluida */
-    .gift__img {
-        width: 100%;
-        /* Ocupa todo el ancho disponible */
-        max-width: 350px;
-        /* Evita que sea gigante */
-        height: auto;
-        /* Mantiene proporción */
-        margin-top: 0;
-        margin-bottom: 3rem;
-        /* Espacio entre foto y texto */
-    }
-
-    /* 3. Ajustamos el contenedor de texto */
-    .gift__content {
-        width: 100%;
-        margin-left: 0;
-        text-align: left;
-        /* Centramos el texto en móvil */
-    }
-
-    /* 4. Reseteo de títulos para que no sean absolutos */
-    .gift__header {
-        position: relative;
-        margin-bottom: 2rem;
-    }
-
-    .gift__title-top,
-    .gift__title-bottom {
-        position: relative;
-        left: 0;
-        top: 0;
-        font-size: 8vw;
-        /* Ajuste para que se vea bien en celular */
+    .itinerary__footer {
+        justify-content: center;
         text-align: center;
-        white-space: normal;
+    }
+        /* FAQ a una sola columna */
+    .faqs__grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
     }
 
-    /* 5. Ajustes de legibilidad para móvil */
-    .gift__text,
-    .gift__bank,
-    .gift__thanks {
-        font-size: 2.5vw;
-        text-align: left;
-    }
-
-    .gift__account {
-        justify-content: left;
-        /* Centramos el número de cuenta */
-    }
-
-    .gift__copy-icon {
-        width: 2.5vw;
-        height: 2.5vw;
-    }
-
-    /* --- PLAYLIST Y MENSAJES (Columna Derecha) --- */
-    .media-section {
-        flex-direction: column;
-        height: auto;
-        min-height: 100vh;
-    }
-
-    .media-section__half {
-        width: 100%;
-        height: auto;
-        min-height: auto;
-    }
-
-    /* --- MITAD IZQUIERDA: PLAYLIST --- */
-    .media-section__half--left {
-        display: flex;
+    /* Galería responsiva: apilar o reducir espacio */
+    .gallery__content {
         flex-direction: column;
         justify-content: center;
+        gap: 30px;
+    }
+
+    .gallery__photo {
+        width: 70%; /* Ajuste para que quepan en celular */
+        aspect-ratio: 7 / 9; /* Más apaisado en vertical para no ocupar tanta pantalla */
+    }
+
+    
+    /* Regalo a una sola columna */
+    .gift__container {
+        flex-direction: column; /* Pone la imagen arriba del texto en móviles */
         align-items: center;
-        padding: 5rem 0;
-        gap: 0;
+       
     }
 
-    /* --- MITAD DERECHA: MENSAJE --- */
-    .media-section__half--right {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        padding-top: 4rem;
-        /* Aumentamos el padding inferior para darle espacio a los círculos */
-        padding-bottom: 3rem;
-    }
-
-    /* --- RESETEO DE POSICIONES ABSOLUTAS --- */
-    .media-section__title-nuestra,
-    .media-section__title-playlist,
-    .media-section__subtitle-left,
-    .media-section__spotify-link,
-    .media-section__footer-text,
-    .media-section__title-dejanos,
-    .media-section__title-mensaje,
-    .media-section__subtitle-right {
-        position: relative;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        margin: 0;
-        text-align: center;
-        width: 100%;
-    }
-
-    /* --- TAMAÑOS Y DISTANCIAS: TITULOS --- */
-    /* Títulos base (Nuestra / Déjanos un) un poco más chicos */
-    .media-section__title-nuestra,
-    .media-section__title-dejanos {
-        font-size: 9.5vw;
-    }
-
-    /* Títulos script (Playlist / Mensaje) más chicos y MÁS CERCA del superior */
-    .media-section__title-playlist,
-    .media-section__title-mensaje {
-        font-size: 12.5vw;
-        margin-top: -3rem;
-        /* Margen negativo mayor para pegar las palabras */
-    }
-
-    /* --- TAMAÑOS: TEXTOS GENERALES --- */
-    /* Subtítulos y textos pequeños un poquitito más chicos */
-    .media-section__subtitle-left,
-    .media-section__subtitle-right,
-    .media-section__footer-text {
-        font-size: 3.5vw;
-        white-space: normal;
-        padding: 0 5%;
-    }
-
-    .media-section__subtitle-left {
-        margin-top: 1rem;
-        margin-bottom: 3rem;
-    }
-
-    .media-section__subtitle-right {
-        margin-top: 1rem;
-        margin-bottom: 2rem;
-    }
-
-    .media-section__footer-text {
-        margin-top: 2rem;
-    }
-
-    /* --- IMAGEN SPOTIFY --- */
-    .media-section__spotify-img {
-        width: 90vw;
-        max-width: none;
-        height: auto;
-    }
-
-    /* --- POSTAL MÁS CHICA --- */
-    .media-section__postcard {
-        width: 65vw;
-        height: 53vw;
-        position: relative;
-        left: 0;
-        top: 0;
-        margin-bottom: 3rem;
-    }
-
-    /* Textos internos de la postal más chicos */
-    .media-section__postcard-label,
-    .media-section__postcard-btn {
-        font-size: 3vw;
-    }
-
-    /* --- CARRUSEL Y CÍRCULOS (MANTELES) --- */
-    .media-section__carousel-wrapper {
-        width: 100vw;
-        position: relative;
-        left: 0;
-        bottom: 0;
-        margin-top: auto;
-        margin-bottom: 0;
-    }
-
-    /* Ajuste específico para hacer los círculos MÁS GRANDES en móvil */
-    .media-section__mat {
-        width: 45vw;
-        /* Crece bastante respecto al escritorio */
-        height: 45vw;
-        padding: 8vw;
-        /* Padding interno para que el texto no toque el borde del mantel */
-    }
-
-    /* Textos internos del círculo adaptados al nuevo tamaño */
-    .media-section__mat-text {
-        font-size: 2.2vw;
-    }
-
-    .media-section__mat-author {
-        font-size: 1.8vw;
-    }
-
-    .message-modal {
-        /* Aumentamos el ancho relativo para que ocupe más espacio */
-        width: 70vw !important;
-        max-width: 700px !important;
-    }
-
-    .message-modal__container {
-        padding: 6vw !important;
-        /* Más aire interno */
-    }
-
-    .message-modal__title {
-        font-size: 4vw !important;
-        /* Fuente un poco más grande que en escritorio */
-    }
-
-    .message-modal__subtitle {
-        font-size: 5.5vw !important;
-    }
-
-    .message-modal__input,
-    .message-modal__textarea {
-        font-size: 2vw !important;
-        /* Textos de input más legibles */
-        padding: 1.5vw 0.5vw !important;
-    }
-
-    .message-modal__submit {
-        font-size: 2vw !important;
-        padding: 1.5vw 3vw !important;
-    }
-
-    .message-modal__close {
-        width: 3vw !important;
-        height: 3vw !important;
-    }
-
-    .closing-section__container {
-        gap: 4vh;
-        /* Cerramos un poco el "acordeón" */
-    }
-
-    .closing-section__title {
-        font-size: 7.5vw;
-    }
-
-    .closing-section__envelope {
-        width: 55vw;
-        /* El sobre crece un poco para celular */
+    .gift__title-bottom {
+        margin-left: 0;
     }
 
     .closing-section__bg-text {
-        font-size: 13vw;
-    }
-
-    .closing-section__message-wrapper {
-        width: 90%;
-    }
-
-    .closing-section__message {
-        font-size: 4.5vw;
-    }
-
-    .closing-section__flower {
-        width: 45vw;
-        bottom: 2vh;
-    }
-
-    .closing-section__footer {
-        font-size: 3vw;
-    }
+    font-size: clamp(65px, 10vw, 150px);
+}
+.gallery__bg-img {
+    transform: translate(-50%, -50%) rotate(0deg);
+}
+.gallery {
+    padding: clamp(100px, 12vw, 180px) 20px;
+    min-height: 150vh;
+}
 }
 
-/* =========================================
-   3. AJUSTES FINALES PARA MÓVIL ESTÁNDAR (<= 500px)
-   ========================================= */
-@media (max-width: 500px) {
-    .closing-section__container {
-        gap: 3vh;
-        /* Compresión vertical máxima, pero sin tocarse */
-    }
-
-    .closing-section__title {
-        font-size: 5vw;
-    }
-
-    .closing-section__envelope {
-        width: 50vw;
-        /* El sobre es el protagonista visual */
-    }
-
+@media (max-width:500px){
+.closing-section__title {
+    font-size: clamp(35px, 6vw, 90px);
+}
     .closing-section__bg-text {
-        font-size: 12vw;
-        /* Las letras de fondo abrazan el sobre */
-    }
-
-    .closing-section__message {
-        font-size: 4vw;
-        line-height: 1.5;
-    }
-
-    .closing-section__footer {
-        font-size: 2.5vw;
-        margin-top: 4vh;
-    }
-
-    .closing-section__flower {
-        width: 30vw;
-        opacity: 0.8;
-        /* Suavizamos la flor un poco para que no robe atención */
+        font-size: clamp(55px, 10vw, 150px);
     }
 }
