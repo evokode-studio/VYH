@@ -1794,6 +1794,7 @@ details[open] .faq__icon {
         padding: 60px 5vw;
     }
 
+    
     /* Detalles de FAQ en móvil (Animación suave) */
     .faq__content {
         opacity: 0;
